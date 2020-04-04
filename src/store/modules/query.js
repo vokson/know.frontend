@@ -1,0 +1,155 @@
+let urls = {
+
+    test: "/test",
+};
+
+export default {
+    namespaced: true,
+
+    actions: {
+
+        send: (context, payload) => {
+
+            let data = payload.data
+            // data.access_token = context.rootState.user.access_token;
+            let query_name = payload.queryName
+
+            let responseFunction = function (response) {
+
+                // console.log(query_name);
+                response.data.queryName = query_name;
+                context.dispatch('response/use', response.data, { root: true });
+            };
+
+            // Пробрасываем имя запроса в response, чтобы точно знать от какой функции ответ
+            responseFunction.bind(this);
+
+            window.$axios.request({
+                url: urls[payload.queryName],
+                data: data,
+                method: 'post'
+            })
+                .then(responseFunction)
+                .catch(function (error) {
+
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                        // http.ClientRequest in node.js
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+
+                    if (error.response.status === 404) {
+                        context.dispatch('notify/showNotifyByCode', "E_SERVER_001", { root: true });
+                    }
+
+                    if (error.response.status === 500) {
+                        context.dispatch('notify/showNotifyByCode', "E_SERVER_002", { root: true });
+                    }
+                });
+        },
+
+        sendInOrderToGetFile: (context, payload) => {
+
+            let data = payload.data
+            // data.access_token = context.rootState.user.access_token;
+
+            let responseFunction = function (response) {
+
+                // Скачивание
+                if (payload.isInline == true) {
+
+                    var newBlob = new Blob([response.data], { type: "application/pdf" })
+                    const url = window.URL.createObjectURL(newBlob);
+                    window.open(url);
+                    window.URL.revokeObjectURL(url);
+
+                } else {
+                    // Открытие PDF на новой вкладке
+
+                    let filename = decodeURIComponent(response.headers['content-filename']);
+                    window.$download(response.data, filename);
+
+                    // Вызов дополнительной функции после завершения запроса
+                    if (payload.afterDownloadAction != null) {
+                        context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                    }
+
+                }
+            }
+
+            window.$axios({
+                url: urls[payload.queryName],
+                data: data,
+                method: 'post',
+                headers: {
+                    'Accept': '*/* ',
+                },
+                responseType: 'blob'
+            })
+                .then(responseFunction)
+                .catch(function (error) {
+                    console.log(error);
+                    // context.dispatch('notify/showNotifyByCode', 601, { root: true })
+                });
+        },
+
+        sendInOrderToUploadFile: (context, payload) => {
+
+            let query_name = payload.queryName;
+
+            let responseFunction = function (response) {
+
+                // Если загрузка файла не удалась, надо что-то делать..
+                if (response.data.success == 0) {
+                    payload.data.badFileUploadCallback();
+                }
+
+                // console.log(query_name);
+                response.data.queryName = query_name;
+                context.dispatch('response/use', response.data, { root: true });
+            };
+
+            // Пробрасываем имя запроса в response, чтобы точно знать от какой функции ответ
+            responseFunction.bind(this);
+
+            let data = payload.data
+
+            let formData = new FormData();
+            Object.keys(payload.data).map(function (key) {
+                formData.append(key, data[key]);
+            });
+
+            // formData.append('access_token', context.rootState.user.access_token);
+
+            window.$axios({
+                url: urls[payload.queryName],
+                data: formData,
+                method: 'post',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+
+                onUploadProgress: payload.data.progressCallback,
+            })
+                .then(responseFunction)
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+
+        },
+
+    }
+
+}
