@@ -1,6 +1,7 @@
 let urls = {
-
-    test: "/test",
+    auth_is_token_valid: "/user/is/token/valid",
+    auth_login: "/user/login",
+    auth_login_by_token: "/user/login/token"
 };
 
 export default {

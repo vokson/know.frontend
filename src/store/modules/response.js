@@ -15,8 +15,12 @@ export default {
 
                 switch (payload.queryName) {
 
-                    case "test":
-                        context.dispatch("test", payload);
+                    case "auth_login":
+                    case "auth_login_by_token":
+                        context.dispatch("auth_login", payload);
+                        break;
+
+                    case "auth_check_token":
                         break;
 
                     default:
@@ -25,20 +29,25 @@ export default {
             }
         },
 
-        test: (context, payload) => {
+        auth_login: (context, payload) => {
 
             if (payload.success == 1) {
+                context.commit('setUser', payload, { root: true });
+                context.dispatch('notify/showNotifyByCode', "E_AUTH_001", { root: true })
 
-                console.log("TEST PASSED")
-                context.dispatch('notify/showNotifyByCode', "E_001", { root: true });
-                // context.commit('upload_file/uploadSuccess', payload, { root: true });
-                // context.commit('model_uin/update', payload, { root: true });
-
+            } else {
+                context.commit('setUser', {
+                    access_token: "",
+                    name: "",
+                    surname: "",
+                    role: "guest",
+                    email: ""
+                }, { root: true });
             }
 
-        }
+        },
 
-       
+
     }
 
 }
