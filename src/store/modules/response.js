@@ -23,6 +23,10 @@ export default {
                     case "auth_check_token":
                         break;
 
+                    case "user_change_password":
+                        context.dispatch("user_change_password", payload);
+                        break;
+
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 }
@@ -43,6 +47,15 @@ export default {
                     role: "guest",
                     email: ""
                 }, { root: true });
+            }
+
+        },
+
+        user_change_password: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_AUTH_003", { root: true })
+                // context.dispatch('auth/loginByToken', context.rootState.user.access_token, { root: true });
             }
 
         },

@@ -53,7 +53,7 @@ export default {
         changePassword: (context, payload) => {
 
             let parameters = {
-                queryName: "auth_change_password",
+                queryName: "user_change_password",
                 data: {
                     password: payload.password,
                 },

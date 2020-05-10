@@ -1,8 +1,21 @@
 let urls = {
     auth_is_token_valid: "/user/is/token/valid",
     auth_login: "/user/login",
-    auth_login_by_token: "/user/login/token"
+    auth_login_by_token: "/user/login/token",
+
+    user_change_password: '/user/change/password',
 };
+
+let isUrlExist = function(context, payload) {
+
+    if (!Object.prototype.hasOwnProperty.call(urls, payload.queryName)) {
+        context.dispatch('notify/showNotifyByCode', "E_QUERY_001", { root: true });
+
+        return false;
+    }
+
+    return true;
+}
 
 export default {
     namespaced: true,
@@ -11,8 +24,11 @@ export default {
 
         send: (context, payload) => {
 
+            if (!isUrlExist(context, payload)) return;
+
             let data = payload.data
-            // data.access_token = context.rootState.user.access_token;
+            data.access_token = context.rootState.user.access_token;
+
             let query_name = payload.queryName
 
             let responseFunction = function (response) {
@@ -28,42 +44,41 @@ export default {
             window.$axios.request({
                 url: urls[payload.queryName],
                 data: data,
-                method: 'post'
+                method: 'post',
+                timeout: 10000, // Ждем 10 сек ответа сервера
             })
                 .then(responseFunction)
                 .catch(function (error) {
 
                     if (error.response) {
+                        context.dispatch('notify/showNotifyByCode', "E_SERVER_002", { root: true });
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
                         console.log(error.response.data);
                         console.log(error.response.status);
                         console.log(error.response.headers);
                     } else if (error.request) {
+                        context.dispatch('notify/showNotifyByCode', "E_SERVER_001", { root: true });
                         // The request was made but no response was received
                         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
                         // http.ClientRequest in node.js
                         console.log(error.request);
                     } else {
+                        context.dispatch('notify/showNotifyByCode', "E_SERVER_003", { root: true });
                         // Something happened in setting up the request that triggered an Error
                         console.log('Error', error.message);
                     }
-                    console.log(error.config);
 
-                    if (error.response.status === 404) {
-                        context.dispatch('notify/showNotifyByCode', "E_SERVER_001", { root: true });
-                    }
-
-                    if (error.response.status === 500) {
-                        context.dispatch('notify/showNotifyByCode', "E_SERVER_002", { root: true });
-                    }
+                    // console.log(error.config);
                 });
         },
 
         sendInOrderToGetFile: (context, payload) => {
 
+            if (!isUrlExist(context, payload)) return;
+
             let data = payload.data
-            // data.access_token = context.rootState.user.access_token;
+            data.access_token = context.rootState.user.access_token;
 
             let responseFunction = function (response) {
 
@@ -107,6 +122,8 @@ export default {
 
         sendInOrderToUploadFile: (context, payload) => {
 
+            if (!isUrlExist(context, payload)) return;
+
             let query_name = payload.queryName;
 
             let responseFunction = function (response) {
@@ -131,7 +148,7 @@ export default {
                 formData.append(key, data[key]);
             });
 
-            // formData.append('access_token', context.rootState.user.access_token);
+            formData.append('access_token', context.rootState.user.access_token);
 
             window.$axios({
                 url: urls[payload.queryName],

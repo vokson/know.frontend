@@ -2,6 +2,12 @@ let getText = function (code) {
 
     switch (code) {
 
+        case "E_QUERY_001":
+            return {
+                text: "Неверное имя запроса в обработчике запросов",
+                type: "error"
+            }
+
         case "E_RESPONSE_001":
             return {
                 text: "Неверное имя запроса в обработчике ответов",
@@ -17,6 +23,12 @@ let getText = function (code) {
         case "E_SERVER_002":
             return {
                 text: "Необработанная ошибка сервера",
+                type: "error"
+            }
+
+        case "E_SERVER_003":
+            return {
+                text: "Неизвестная ошибка приложения",
                 type: "error"
             }
 
@@ -42,12 +54,6 @@ let getText = function (code) {
             return {
                 title: "Ошибка 0.0",
                 text: "Необработанное исключение",
-                type: "error"
-            }
-
-        case "E_AUTH_RESPONSE_001":
-            return {
-                text: "Неверное имя запроса в обработчике ответов",
                 type: "error"
             }
 

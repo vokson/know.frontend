@@ -53,17 +53,16 @@ export default {
       return this.$store.state.user.access_token;
     },
 
-    language: function () {
-      return this.$store.state.language;
-    }
+    // language: function () {
+    //   return this.$store.state.language;
+    // }
 
   },
 
   watch: {
     token: function (val) {
       if (val != "") {
-        // this.$router.push('home');
-        console.log('NEW TOKEN = ' + this.token)
+        this.$router.push({name:'home'});
       }
     },
 
