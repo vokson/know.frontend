@@ -27,6 +27,27 @@ export default {
                         context.dispatch("user_change_password", payload);
                         break;
 
+                    case "user_get":
+                        context.dispatch("user_get", payload);
+                        break;
+                    case "user_set":
+                        context.dispatch("user_set", payload);
+                        break;
+                    case "user_set_default_password":
+                        context.dispatch("user_set_default_password", payload);
+                        break;
+                    case "user_delete":
+                        context.dispatch("user_delete", payload);
+                        break;
+
+                    case "setting_get":
+                        context.dispatch("setting_get", payload);
+                        break;
+
+                    case "setting_set":
+                        context.dispatch("setting_set", payload);
+                        break;
+
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 }
@@ -59,6 +80,57 @@ export default {
             }
 
         },
+
+        user_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('users/update', payload.items, { root: true });
+            }
+
+        },
+
+        user_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_USER_001", { root: true })
+                context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        user_set_default_password: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_USER_003", { root: true })
+            }
+
+        },
+
+        user_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_USER_002", { root: true })
+                context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        setting_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('setting/update', payload.items, { root: true });
+            }
+
+        },
+
+        setting_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
+            }
+
+        },
+
 
 
     }

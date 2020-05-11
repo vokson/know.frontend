@@ -4,6 +4,16 @@ let urls = {
     auth_login_by_token: "/user/login/token",
 
     user_change_password: '/user/change/password',
+
+    setting_get: '/setting/get',
+    setting_set: '/setting/set',
+
+    user_get: "/user/get",
+    user_set: "/user/set",
+    user_set_default_password: "/user/set/default/password",
+    user_delete: "/user/delete",
+
+    service_database_backup: '/service/database/backup',
 };
 
 let isUrlExist = function(context, payload) {

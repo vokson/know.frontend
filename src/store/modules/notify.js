@@ -50,6 +50,31 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_SETTING_001":
+            return {
+                text: "Настройки сохранены",
+                type: "success"
+            }
+
+        case "E_USER_001":
+            return {
+                text: "Пользователь сохранен",
+                type: "success"
+            }
+
+        case "E_USER_002":
+            return {
+                text: "Пользователь удален",
+                type: "success"
+            }
+
+        case "E_USER_003":
+            return {
+                text: "Пользователю установлен пароль по умолчанию",
+                type: "success"
+            }
+
+
         case '0.0':
             return {
                 title: "Ошибка 0.0",

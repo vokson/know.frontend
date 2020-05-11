@@ -9,6 +9,7 @@ import axios from 'axios'
 import Notifications from 'vue-notification'
 
 import VueCookies from 'vue-cookies'
+import fileDownload from 'js-file-download'
 
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -32,3 +33,4 @@ window.$axios = axios.create({
 });
 
 window.$sha256 = sha256
+window.$download = fileDownload

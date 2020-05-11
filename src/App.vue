@@ -19,11 +19,13 @@
         {{ (language == 'RUS') ? 'Пакуй' : 'Merge PDF' }}
       </b-nav-item> -->
       
-      <!-- <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
+      <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
+      <!-- 
       <b-nav-item
         :to="{ name: 'log' }"
         v-on:click="onNewMessagesClick"
       >
+      
         <span class="badge badge-danger">{{countOfLogNewMessages}}</span>
       </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">
