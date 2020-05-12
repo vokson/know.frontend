@@ -219,7 +219,7 @@ export default {
     },
 
     addItem: function() {
-      this.$store.dispatch("users/set", {
+      this.$store.dispatch("users/create", {
         email: this.targetItem.email,
         surname: this.targetItem.surname,
         name: this.targetItem.name,

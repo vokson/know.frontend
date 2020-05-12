@@ -9,6 +9,7 @@ let urls = {
     setting_set: '/setting/set',
 
     user_get: "/user/get",
+    user_create: "/user/create",
     user_set: "/user/set",
     user_set_default_password: "/user/set/default/password",
     user_delete: "/user/delete",

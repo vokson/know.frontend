@@ -30,6 +30,9 @@ export default {
                     case "user_get":
                         context.dispatch("user_get", payload);
                         break;
+                    case "user_create":
+                        context.dispatch("user_create", payload);
+                        break;
                     case "user_set":
                         context.dispatch("user_set", payload);
                         break;
@@ -85,6 +88,15 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('users/update', payload.items, { root: true });
+            }
+
+        },
+
+        user_create: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_USER_004", { root: true })
+                context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
             }
 
         },

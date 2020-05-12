@@ -38,6 +38,16 @@ export default {
         },
 
 
+        create: (context, payload) => {
+
+            let parameters = {
+                queryName: "user_create",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
         set: (context, payload) => {
 
             let parameters = {

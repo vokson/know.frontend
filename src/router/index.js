@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 import Setting from '../views/Setting.vue'
 import User from '../views/User.vue'
+import Action from '../views/Action.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,12 @@ const routes = [
     path: '/user',
     name: 'user',
     component: User
+  },
+
+  {
+    path: '/action',
+    name: 'action',
+    component: Action
   },
   
 ]

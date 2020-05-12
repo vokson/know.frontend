@@ -58,7 +58,7 @@ let getText = function (code) {
 
         case "E_USER_001":
             return {
-                text: "Пользователь сохранен",
+                text: "Пользователь изменен",
                 type: "success"
             }
 
@@ -71,6 +71,12 @@ let getText = function (code) {
         case "E_USER_003":
             return {
                 text: "Пользователю установлен пароль по умолчанию",
+                type: "success"
+            }
+
+        case "E_USER_004":
+            return {
+                text: "Пользователь добавлен",
                 type: "success"
             }
 

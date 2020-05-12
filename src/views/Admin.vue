@@ -7,6 +7,10 @@
         <h4>Пользователи</h4>
       </b-nav-item>
 
+      <b-nav-item :to="{ name: 'action' }">
+        <h4>Ролевые игры</h4>
+      </b-nav-item>
+
       <b-nav-item :to="{ name: 'setting' }">
         <h4>Настройки</h4>
       </b-nav-item>
