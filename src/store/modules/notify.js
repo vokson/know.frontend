@@ -231,6 +231,13 @@ let getText = function (code) {
                 text: "Неверные данные в поле state.",
                 type: "error"
             }
+            
+        case '4.4':
+            return {
+                title: "Ошибка валидации действия 4.4",
+                text: "Неверные данные в поле items.",
+                type: "error"
+            }
 
         // ARTICLE
         case '5.1':

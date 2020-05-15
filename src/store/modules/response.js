@@ -51,6 +51,28 @@ export default {
                         context.dispatch("setting_set", payload);
                         break;
 
+                    // case "action_get_list_actions":
+                    //     context.dispatch("action_get_list_actions", payload);
+                    //     break;
+
+                    // case "action_get_list_roles":
+                    //     context.dispatch("action_get_list_roles", payload);
+                    //     break;
+
+                    // case "action_get_list_pairs":
+                    //     context.dispatch("action_get_list_pairs", payload);
+                    //     break;
+
+                        case "action_get":
+                        context.dispatch("action_get", payload);
+                        break;
+
+                    case "action_set":
+                        context.dispatch("action_set", payload);
+                        break;
+
+
+
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 }
@@ -139,6 +161,47 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
+            }
+
+        },
+
+        // action_get_list_actions: (context, payload) => {
+
+        //     if (payload.success == 1) {
+        //         context.commit('action/updateActions', payload.items, { root: true });
+        //     }
+
+        // },
+
+        // action_get_list_pairs: (context, payload) => {
+
+        //     if (payload.success == 1) {
+        //         context.commit('action/updatePairs', payload.items, { root: true });
+        //     }
+
+        // },
+
+        // action_get_list_roles: (context, payload) => {
+
+        //     if (payload.success == 1) {
+        //         context.commit('action/updateRoles', payload.items, { root: true });
+        //     }
+
+        // },
+
+        action_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('action/update', payload.items, { root: true });
+            }
+
+        },
+
+        action_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
+                context.dispatch('action/get', {}, { root: true });
             }
 
         },

@@ -7,7 +7,7 @@ import auth from "./modules/auth";
 import service from "./modules/service";
 import setting from "./modules/setting";
 import users from "./modules/users";
-import actions from "./modules/actions";
+import action from "./modules/action";
 
 Vue.use(Vuex)
 
@@ -64,7 +64,7 @@ export default new Vuex.Store({
     service,
     setting,
     users,
-    actions
+    action
   }
   
 })
