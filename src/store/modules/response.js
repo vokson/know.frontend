@@ -51,24 +51,20 @@ export default {
                         context.dispatch("setting_set", payload);
                         break;
 
-                    // case "action_get_list_actions":
-                    //     context.dispatch("action_get_list_actions", payload);
-                    //     break;
-
-                    // case "action_get_list_roles":
-                    //     context.dispatch("action_get_list_roles", payload);
-                    //     break;
-
-                    // case "action_get_list_pairs":
-                    //     context.dispatch("action_get_list_pairs", payload);
-                    //     break;
-
-                        case "action_get":
+                    case "action_get":
                         context.dispatch("action_get", payload);
                         break;
 
                     case "action_set":
                         context.dispatch("action_set", payload);
+                        break;
+
+                    case "article_get":
+                        context.dispatch("article_get", payload);
+                        break;
+
+                    case "article_set":
+                        context.dispatch("article_set", payload);
                         break;
 
 
@@ -165,30 +161,6 @@ export default {
 
         },
 
-        // action_get_list_actions: (context, payload) => {
-
-        //     if (payload.success == 1) {
-        //         context.commit('action/updateActions', payload.items, { root: true });
-        //     }
-
-        // },
-
-        // action_get_list_pairs: (context, payload) => {
-
-        //     if (payload.success == 1) {
-        //         context.commit('action/updatePairs', payload.items, { root: true });
-        //     }
-
-        // },
-
-        // action_get_list_roles: (context, payload) => {
-
-        //     if (payload.success == 1) {
-        //         context.commit('action/updateRoles', payload.items, { root: true });
-        //     }
-
-        // },
-
         action_get: (context, payload) => {
 
             if (payload.success == 1) {
@@ -202,6 +174,26 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
                 context.dispatch('action/get', {}, { root: true });
+            }
+
+        },
+
+        article_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('article/update', payload, { root: true });
+            }
+
+        },
+
+        article_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_ARTICLE_001", { root: true })
+                context.dispatch('article/get', {
+                    id: payload.id,
+                    version: payload.version
+                }, { root: true });
             }
 
         },

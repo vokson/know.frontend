@@ -14,11 +14,11 @@ let urls = {
     user_set_default_password: "/user/set/default/password",
     user_delete: "/user/delete",
 
-    // action_get_list_actions: "/list/actions",
-    // action_get_list_roles: "/list/roles",
-    // action_get_list_pairs: "/action/get",
     action_get: "/action/get",
     action_set: "/action/set",
+
+    article_get: "/article/get",
+    article_set: "/article/set",
 
     service_database_backup: '/service/database/backup',
 };

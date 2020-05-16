@@ -10,6 +10,8 @@ import Notifications from 'vue-notification'
 
 import VueCookies from 'vue-cookies'
 import fileDownload from 'js-file-download'
+import Datepicker from 'vuejs-datepicker';
+import { VueEditor } from 'vue2-editor';
 
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -18,6 +20,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(Notifications);
 Vue.use(VueCookies)
+
+
+Vue.component("datepicker", Datepicker);
+Vue.component("editor", VueEditor);
 
 Vue.config.productionTip = false
 

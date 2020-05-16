@@ -6,6 +6,7 @@ import Admin from '../views/Admin.vue'
 import Setting from '../views/Setting.vue'
 import User from '../views/User.vue'
 import Action from '../views/Action.vue'
+import Article from '../views/Article.vue'
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,12 @@ const routes = [
     path: '/action',
     name: 'action',
     component: Action
+  },
+
+  {
+    path: '/article',
+    name: 'article',
+    component: Article
   },
   
 ]

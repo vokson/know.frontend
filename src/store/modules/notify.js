@@ -80,6 +80,12 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_ARTICLE_001":
+            return {
+                text: "Статья сохранена",
+                type: "success"
+            }
+
 
         case '0.0':
             return {
