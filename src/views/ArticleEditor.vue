@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3>Статья {{articleId}} : {{articleVersion}}</h3>
+        <h3>Статья {{articleUin}} : {{articleVersion}}</h3>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <input type="text" class="form-control" v-model="article.subject" />
+        <input type="text" class="form-control" placeholder="Название" v-model="articleSubject" />
       </div>
     </div>
 
@@ -16,7 +16,7 @@
       <div class="col" id="col-drop-area">
         <editor
           v-if="isDragging == false"
-          v-model="article.body"
+          v-model="articleBody"
           :editorToolbar="customEditorToolbar"
         ></editor>
         <div
@@ -75,7 +75,7 @@
 // import { en, ru } from "vuejs-datepicker/dist/locale";
 
 export default {
-  name: "Article",
+  name: "ArticleEditor",
 
   data: function() {
     return {
@@ -92,15 +92,15 @@ export default {
         [{ list: "ordered" }, { list: "check" }],
         [{ color: [] }, { background: [] }],
         ["clean"]
-      ],
+      ]
 
-      article: {
-        subject: "Название",
-        body: "Тело",
-        is_attachment_exist: null,
-        owner: null
-        // date: new Date()
-      }
+      // article: {
+      //   // subject: "Название",
+      //   body: "Тело",
+      //   is_attachment_exist: null,
+      //   owner: null
+      //   // date: new Date()
+      // }
 
       // search: {
       //   to: "",
@@ -116,6 +116,11 @@ export default {
 
   mounted: function() {
     this.$nextTick(function() {
+
+      this.getArticle({
+        uin: this.$route.params.uin
+      });
+
       // this.getTitles();
       // this.getUsers();
       // this.targetItem.from = this.$store.state.user.id;
@@ -142,12 +147,40 @@ export default {
   },
 
   computed: {
-    articleId: function() {
-      return this.$store.getters["article/giveId"];
+    articleUin: {
+      get() {
+        return this.$store.getters["article/giveUin"];
+      },
+      set(value) {
+        this.$store.commit("article/updateUin", value, { root: true });
+      }
     },
 
-    articleVersion: function() {
-      return this.$store.getters["article/giveVersion"];
+    articleVersion: {
+      get() {
+        return this.$store.getters["article/giveVersion"];
+      },
+      set(value) {
+        this.$store.commit("article/updateVersion", value, { root: true });
+      }
+    },
+
+    articleSubject: {
+      get() {
+        return this.$store.getters["article/giveSubject"];
+      },
+      set(value) {
+        this.$store.commit("article/updateSubject", value, { root: true });
+      }
+    },
+
+    articleBody: {
+      get() {
+        return this.$store.getters["article/giveBody"];
+      },
+      set(value) {
+        this.$store.commit("article/updateBody", value, { root: true });
+      }
     }
 
     // titles: function() {
@@ -193,11 +226,14 @@ export default {
 
   methods: {
     saveArticle: function() {
-       this.$store.dispatch("article/set", {
-         id: this.articleId,
-         subject: this.article.subject,
-         body: this.article.body
-       });
+      this.$store.dispatch("article/set", {});
+    },
+
+    getArticle: function(payload) {
+      this.$store.dispatch("article/get", {
+        uin: payload.uin,
+        version: payload.version
+      });
     }
 
     // formatDate: function(timestamp) {
@@ -515,9 +551,11 @@ export default {
   },
 
   watch: {
-    // isNewMessagesToBeShown: function() {
-    //   this.showNewMessages();
-    // },
+    // articleSubject: function(value) {
+    //   this.$store.commit("article/updateSubject", value, {
+    //     root: true
+    //   });
+    // }
     // isRecordForTitleToBeShown: function() {
     //   this.showRecordForTitle();
     // }

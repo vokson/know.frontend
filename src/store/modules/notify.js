@@ -263,7 +263,7 @@ let getText = function (code) {
         case '5.3':
             return {
                 title: "Ошибка валидации статьи 5.3",
-                text: "Неверные данные в поле id.",
+                text: "Неверные данные в поле uin.",
                 type: "error"
             }
 

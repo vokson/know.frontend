@@ -2,7 +2,7 @@ export default {
     namespaced: true,
 
     state: {
-        id: null,
+        uin: null,
         version: null,
         subject: "",
         body: "",
@@ -11,8 +11,8 @@ export default {
     },
 
     getters: {
-        giveId: function (state) {
-            return state.id;
+        giveUin: function (state) {
+            return state.uin;
         },
 
         giveVersion: function (state) {
@@ -38,12 +38,28 @@ export default {
 
     mutations: {
         update: function (state, data) {
-            state.id = data.id;
+            state.uin = data.uin;
             state.version = data.version;
             state.subject = data.subject;
             state.body = data.body;
             state.is_attachment_exist = data.is_attachment_exist;
             state.owner = data.owner;
+        },
+
+        updateUin: function (state, value) {
+            state.uin = value;
+        },
+
+        updateVersion: function (state, value) {
+            state.version = value;
+        },
+
+        updateSubject: function (state, value) {
+            state.subject = value;
+        },
+
+        updateBody: function (state, value) {
+            state.body = value;
         },
     },
 
@@ -54,7 +70,7 @@ export default {
             let parameters = {
                 queryName: "article_get",
                 data: {
-                    id: payload.id,
+                    uin: payload.uin,
                     version: payload.version
                 },
             };
@@ -62,14 +78,14 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
-        set: (context, payload) => {
+        set: (context) => {
 
             let parameters = {
                 queryName: "article_set",
                 data: {
-                    id: payload.id,
-                    subject: payload.subject,
-                    body: payload.body
+                    uin: context.state.uin,
+                    subject: context.state.subject,
+                    body: context.state.body
                 },
             };
 

@@ -44,7 +44,7 @@ export default {
             if (!isUrlExist(context, payload)) return;
 
             let data = payload.data
-            data.access_token = context.rootState.user.access_token;
+            data.access_token = context.rootGetters['auth/giveAccessToken'];
 
             let query_name = payload.queryName
 
@@ -95,7 +95,7 @@ export default {
             if (!isUrlExist(context, payload)) return;
 
             let data = payload.data
-            data.access_token = context.rootState.user.access_token;
+            data.access_token = context.rootGetters['auth/giveAccessToken'];
 
             let responseFunction = function (response) {
 
@@ -165,7 +165,7 @@ export default {
                 formData.append(key, data[key]);
             });
 
-            formData.append('access_token', context.rootState.user.access_token);
+            formData.append('access_token', context.rootGetters['auth/giveAccessToken']);
 
             window.$axios({
                 url: urls[payload.queryName],

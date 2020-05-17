@@ -50,7 +50,7 @@ export default {
 
   computed: {
     token: function () {
-      return this.$store.state.user.access_token;
+      return this.$store.getters["auth/giveAccessToken"];
     },
 
     // language: function () {

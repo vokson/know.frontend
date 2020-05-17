@@ -244,17 +244,14 @@ export default {
   },
 
   mounted: function () {
-    // this.choose_language = this.$store.state.language;
 
     this.$nextTick(function () {
+      this.$store.dispatch('auth/loginByToken', {});
       // this.getUserSettings();
     })
   },
 
   computed: {
-    // language: function () {
-    //   return this.$store.state.language;
-    // },
 
     isNewPasswordOk_1: function () {
       return (this.new_password_1.indexOf(" ") != -1 || this.new_password_1.length < 4) ? false : true;
@@ -265,23 +262,23 @@ export default {
     },
 
     isDefaultPassword: function () {
-      return this.$store.state.user.isDefaultPassword;
+      return this.$store.getters["auth/giveIsDefaultPassword"];
     },
 
     email: function () {
-      return this.$store.state.user.email;
+      return this.$store.getters["auth/giveEmail"];
     },
 
     name: function () {
-      return this.$store.state.user.name;
+      return this.$store.getters["auth/giveName"];
     },
 
     surname: function () {
-      return this.$store.state.user.surname;
+      return this.$store.getters["auth/giveSurname"];
     },
 
     role: function () {
-      return this.$store.state.user.role;
+      return this.$store.getters["auth/giveRole"];
     },
 
     // settings: function () {
@@ -289,13 +286,6 @@ export default {
     // }
 
   },
-
-  // watch: {
-  //   choose_language: function (newLang) {
-  //     this.$store.commit('setLanguage', newLang)
-  //   },
-
-  // },
 
   methods: {
     changePassword: function () {

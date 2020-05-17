@@ -6,7 +6,8 @@ import Admin from '../views/Admin.vue'
 import Setting from '../views/Setting.vue'
 import User from '../views/User.vue'
 import Action from '../views/Action.vue'
-import Article from '../views/Article.vue'
+import ArticleEditor from '../views/ArticleEditor.vue'
+import ArticleReader from '../views/ArticleReader.vue'
 
 Vue.use(VueRouter)
 
@@ -48,11 +49,17 @@ const routes = [
   },
 
   {
-    path: '/article',
-    name: 'article',
-    component: Article
+    path: '/article/edit/:uin?',
+    name: 'article_editor',
+    component: ArticleEditor
   },
-  
+
+  {
+    path: '/article/edit/:uin?/:version?',
+    name: 'article_reader',
+    component: ArticleReader
+  },
+
 ]
 
 const router = new VueRouter({

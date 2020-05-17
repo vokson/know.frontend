@@ -5,7 +5,7 @@ export default {
 
         use: (context, payload) => {
 
-            context.commit('setApiResponse', payload, { root: true });
+            // context.commit('setApiResponse', payload, { root: true });
 
             if (payload.success == 0) {
                 context.dispatch('notify/showNotifyByCode', payload.error, { root: true });
@@ -78,11 +78,11 @@ export default {
         auth_login: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('setUser', payload, { root: true });
+                context.commit('auth/setUser', payload, { root: true });
                 context.dispatch('notify/showNotifyByCode', "E_AUTH_001", { root: true })
 
             } else {
-                context.commit('setUser', {
+                context.commit('auth/setUser', {
                     access_token: "",
                     name: "",
                     surname: "",
@@ -191,7 +191,7 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_ARTICLE_001", { root: true })
                 context.dispatch('article/get', {
-                    id: payload.id,
+                    uin: payload.uin,
                     version: payload.version
                 }, { root: true });
             }
