@@ -4,10 +4,12 @@ export default {
     state: {
         uin: null,
         version: null,
+        max_version: null,
         subject: "",
         body: "",
         is_attachment_exist: null,
-        owner: ""
+        owner: "",
+        date: ""
     },
 
     getters: {
@@ -17,6 +19,18 @@ export default {
 
         giveVersion: function (state) {
             return state.version;
+        },
+
+        giveMaxVersion: function (state) {
+            return state.version;
+        },
+
+        givePreviousVersion: function (state) {
+            return (state.version > 1) ? state.version - 1 : false;
+        },
+
+        giveNextVersion: function (state) {
+            return (state.version < state.max_version) ? state.version + 1 : false;
         },
 
         giveSubject: function (state) {
@@ -33,25 +47,31 @@ export default {
 
         giveOwner: function (state) {
             return state.owner;
+        },
+
+        giveDate: function (state) {
+            return state.date;
         }
     },
 
     mutations: {
         update: function (state, data) {
-            state.uin = data.uin;
-            state.version = data.version;
+            state.uin = parseInt(data.uin);
+            state.version = parseInt(data.version);
+            state.max_version = parseInt(data.max_version);
             state.subject = data.subject;
             state.body = data.body;
             state.is_attachment_exist = data.is_attachment_exist;
             state.owner = data.owner;
+            state.date = data.date;
         },
 
         updateUin: function (state, value) {
-            state.uin = value;
+            state.uin = parseInt(value);
         },
 
         updateVersion: function (state, value) {
-            state.version = value;
+            state.version = parseInt(value);
         },
 
         updateSubject: function (state, value) {
@@ -61,6 +81,7 @@ export default {
         updateBody: function (state, value) {
             state.body = value;
         },
+
     },
 
     actions: {

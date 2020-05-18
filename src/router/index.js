@@ -55,7 +55,7 @@ const routes = [
   },
 
   {
-    path: '/article/edit/:uin?/:version?',
+    path: '/article/read/:uin?/:version?',
     name: 'article_reader',
     component: ArticleReader
   },
