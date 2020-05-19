@@ -93,11 +93,11 @@ export default {
     },
 
     listOfRoles: function() {
-      return Object.keys(this.pairs[this.listOfActions[0]]);
+      return (this.pairs === null) ? null : Object.keys(this.pairs[this.listOfActions[0]]);
     },
 
     listOfActions: function() {
-      return Object.keys(this.pairs);
+      return (this.pairs === null) ? null : Object.keys(this.pairs);
     }
   },
 

@@ -68,6 +68,16 @@
         <button type="button" class="btn btn-block btn-success" v-on:click="saveArticle">Сохранить</button>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-12">
+        <button
+          type="button"
+          class="btn btn-block btn-danger"
+          v-on:click="gotoReader"
+        >Читать (не забудь сохранить)</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -117,9 +127,13 @@ export default {
   mounted: function() {
     this.$nextTick(function() {
 
-      this.getArticle({
-        uin: this.$route.params.uin
-      });
+      if (this.$route.params.uin) {
+        this.getArticle({
+          uin: this.$route.params.uin
+        });
+      } else {
+        this.newArticle();
+      }
 
       // this.getTitles();
       // this.getUsers();
@@ -229,10 +243,24 @@ export default {
       this.$store.dispatch("article/set", {});
     },
 
+    newArticle: function() {
+      this.$store.commit("article/new", {});
+    },
+
     getArticle: function(payload) {
       this.$store.dispatch("article/get", {
         uin: payload.uin,
         version: payload.version
+      });
+    },
+
+    gotoReader: function() {
+      this.$router.push({
+        name: "article_reader",
+        params: {
+          uin: this.articleUin,
+          version: this.articleVersion
+        }
       });
     }
 

@@ -82,6 +82,17 @@ export default {
             state.body = value;
         },
 
+        new: function (state) {
+            state.uin = null;
+            state.version = null;
+            state.max_version = null;
+            state.subject = "";
+            state.body = "";
+            state.is_attachment_exist = null;
+            state.owner = "";
+            state.date = "";
+        },
+
     },
 
     actions: {

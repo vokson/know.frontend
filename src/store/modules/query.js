@@ -20,6 +20,11 @@ let urls = {
     article_get: "/article/get",
     article_set: "/article/set",
 
+    tag_list: "/tag/list",
+    tag_create: "/tag/create",
+    tag_delete: "/tag/delete",
+
+
     service_database_backup: '/service/database/backup',
 };
 

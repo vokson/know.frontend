@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-2">
-        <div class="row">#{{articleUin}} v.{{articleVersion}}</div>
-        <div class="row">{{articleOwner}}</div>
-        <div class="row">{{formatDate(articleDate)}}</div>
-        <div class="row">
+      <div class="col-2 ">
+        <div class="row article_reader_left_column">#{{articleUin}} v.{{articleVersion}}</div>
+        <div class="row article_reader_left_column">{{articleOwner}}</div>
+        <div class="row article_reader_left_column">{{formatDate(articleDate)}}</div>
+
+        <div class="row article_reader_left_column">
           <img
             src="./img/prev.png"
             width="40"
@@ -27,15 +28,16 @@
             v-on:click="getNextVersion"
             v-if="articleNextVersion"
           />
-          <img
-            src="./img/next_gray.png"
-            width="40"
-            height="40"
-            v-on:click="getNextVersion"
-            v-else
-          />
-          <!-- <img type="button" class="btn btn-info" v-if="articlePreviousVersion" v-on:click="getPreviousVersion">&lArr;</button> -->
-          <!-- <button type="button" class="btn btn-info" v-if="articleNextVersion" v-on:click="getNextVersion">&rArr;</button> -->
+          <img src="./img/next_gray.png" width="40" height="40" v-on:click="getNextVersion" v-else />
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row article_reader_left_column">
+          <button type="button" class="btn btn-info" v-on:click="gotoEditor">Редактировать</button>
+        </div>
+        <div class="row article_reader_left_column">
+          <button type="button" class="btn btn-success" v-on:click="createNewInEditor">Новая</button>
         </div>
       </div>
 
@@ -143,7 +145,6 @@ export default {
     },
 
     getPreviousVersion: function() {
-
       if (!this.articlePreviousVersion) return;
 
       this.$router.push({
@@ -157,6 +158,21 @@ export default {
       this.getArticle({
         uin: this.articleUin,
         version: this.articlePreviousVersion
+      });
+    },
+
+    gotoEditor: function() {
+      this.$router.push({
+        name: "article_editor",
+        params: {
+          uin: this.articleUin
+        }
+      });
+    },
+
+    createNewInEditor: function() {
+      this.$router.push({
+        name: "article_editor"
       });
     }
   }
@@ -175,5 +191,10 @@ export default {
   /* vertical-align: middle; */
   font: 21pt bold arial;
   color: gray;
+}
+
+.article_reader_left_column {
+  display: flex;
+  justify-content: center;
 }
 </style>

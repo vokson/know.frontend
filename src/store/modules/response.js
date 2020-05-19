@@ -67,6 +67,18 @@ export default {
                         context.dispatch("article_set", payload);
                         break;
 
+                    case "tag_list":
+                        context.dispatch("tag_list", payload);
+                        break;
+
+                    case "tag_create":
+                        context.dispatch("tag_create", payload);
+                        break;
+
+                    case "tag_delete":
+                        context.dispatch("tag_delete", payload);
+                        break;
+
 
 
                     default:
@@ -194,6 +206,32 @@ export default {
                     uin: payload.uin,
                     version: payload.version
                 }, { root: true });
+            }
+
+        },
+
+        tag_list: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('tag/update', payload.items, { root: true });
+            }
+
+        },
+
+        tag_create: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_TAG_001", { root: true })
+                context.dispatch('tag/list', {}, { root: true });
+            }
+
+        },
+
+        tag_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_TAG_002", { root: true })
+                context.dispatch('tag/list', {}, { root: true });
             }
 
         },

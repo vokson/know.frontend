@@ -10,6 +10,7 @@
       <b-nav-item :to="{ name: 'login' }">Вход</b-nav-item>
       <b-nav-item :to="{ name: 'article_editor' }">Статья - Редактирование</b-nav-item>
       <b-nav-item :to="{ name: 'article_reader' }">Статья - Чтение</b-nav-item>
+      <b-nav-item :to="{ name: 'tag' }">Тэги</b-nav-item>
       <!-- <b-nav-item :to="{ name: 'title' }">{{ (language == 'RUS') ? 'Титулы' : 'Title' }}</b-nav-item>
       <b-nav-item :to="{ name: 'docs' }">{{ (language == 'RUS') ? 'Документы' : 'Docs' }}</b-nav-item>
       <b-nav-item :to="{ name: 'news' }">{{ (language == 'RUS') ? 'Новости' : 'News' }}</b-nav-item>

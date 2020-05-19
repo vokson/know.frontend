@@ -86,6 +86,18 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_TAG_001":
+            return {
+                text: "Ключевое слово добавлено",
+                type: "success"
+            }
+
+        case "E_TAG_002":
+            return {
+                text: "Ключевое слово удалено",
+                type: "success"
+            }
+
 
         case '0.0':
             return {
@@ -237,7 +249,7 @@ let getText = function (code) {
                 text: "Неверные данные в поле state.",
                 type: "error"
             }
-            
+
         case '4.4':
             return {
                 title: "Ошибка валидации действия 4.4",

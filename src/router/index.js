@@ -8,6 +8,7 @@ import User from '../views/User.vue'
 import Action from '../views/Action.vue'
 import ArticleEditor from '../views/ArticleEditor.vue'
 import ArticleReader from '../views/ArticleReader.vue'
+import Tag from '../views/Tag.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,12 @@ const routes = [
     path: '/article/read/:uin?/:version?',
     name: 'article_reader',
     component: ArticleReader
+  },
+
+  {
+    path: '/tag',
+    name: 'tag',
+    component: Tag
   },
 
 ]
