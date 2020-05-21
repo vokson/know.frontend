@@ -63,6 +63,7 @@
     </div>-->
 
     <!-- <br /> -->
+
     <div class="row">
       <div class="col-12">
         <button type="button" class="btn btn-block btn-success" v-on:click="saveArticle">Сохранить</button>
@@ -73,9 +74,30 @@
       <div class="col-12">
         <button
           type="button"
+          class="btn btn-block btn-success"
+          v-on:click="saveArticleTags"
+        >Сохранить ключевые слова</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <button
+          type="button"
           class="btn btn-block btn-danger"
           v-on:click="gotoReader"
         >Читать (не забудь сохранить)</button>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="col-12">
+        <div v-for="(elem) in mixedTags" :key="elem.name" class="row align-items-center">
+          <input type="checkbox" id="checkbox" v-model="elem.isChecked" />
+          <label for="checkbox">{{ elem.name }}</label>
+        </div>
       </div>
     </div>
   </div>
@@ -126,6 +148,7 @@ export default {
 
   mounted: function() {
     this.$nextTick(function() {
+      this.listOfTags();
 
       if (this.$route.params.uin) {
         this.getArticle({
@@ -195,6 +218,35 @@ export default {
       set(value) {
         this.$store.commit("article/updateBody", value, { root: true });
       }
+    },
+
+    articleTags: {
+      get() {
+        return this.$store.getters["tag/giveOnlyForSingleArticle"];
+      },
+      set(value) {
+        this.$store.commit("tag/updateOnlyForSingleArticle", value, {
+          root: true
+        });
+      }
+    },
+
+    allTags: function() {
+      return this.$store.getters["tag/give"];
+    },
+
+    mixedTags: function() {
+      if (this.allTags === null || this.articleTags === null) return [];
+
+      let result = [];
+
+      this.allTags.forEach(tagName => {
+        let isChecked = this.articleTags.includes(tagName);
+        let elem = { name: tagName, isChecked: isChecked };
+        result.push(elem);
+      });
+
+      return result;
     }
 
     // titles: function() {
@@ -251,6 +303,40 @@ export default {
       this.$store.dispatch("article/get", {
         uin: payload.uin,
         version: payload.version
+      });
+    },
+
+    listOfTags: function() {
+      this.$store.dispatch("tag/list");
+    },
+
+    saveArticleTags: function() {
+      if (this.articleUin === null) {
+        this.$store.dispatch("notify/showNotifyByCode", "E_TAG_003", {
+          root: true
+        });
+        return;
+      }
+
+      let arr = this.mixedTags
+        .map(function(tag) {
+          if (tag.isChecked === true) return tag.name;
+        })
+        .filter(function(tag) {
+          return (tag);
+        });
+
+        console.log(arr);
+
+      this.$store.dispatch("tag/set", {
+        id: this.articleUin,
+        items: arr
+      });
+    },
+
+    getArticleTags: function() {
+      this.$store.dispatch("tag/get", {
+        id: this.articleUin
       });
     },
 
@@ -579,11 +665,10 @@ export default {
   },
 
   watch: {
-    // articleSubject: function(value) {
-    //   this.$store.commit("article/updateSubject", value, {
-    //     root: true
-    //   });
-    // }
+    articleUin: function() {
+      if (this.articleUin !== null) this.getArticleTags();
+    }
+
     // isRecordForTitleToBeShown: function() {
     //   this.showRecordForTitle();
     // }

@@ -67,6 +67,10 @@ export default {
                         context.dispatch("article_set", payload);
                         break;
 
+                    case "article_search":
+                        context.dispatch("article_search", payload);
+                        break;
+
                     case "tag_list":
                         context.dispatch("tag_list", payload);
                         break;
@@ -77,6 +81,14 @@ export default {
 
                     case "tag_delete":
                         context.dispatch("tag_delete", payload);
+                        break;
+
+                    case "tag_get":
+                        context.dispatch("tag_get", payload);
+                        break;
+
+                    case "tag_set":
+                        context.dispatch("tag_set", payload);
                         break;
 
 
@@ -210,8 +222,17 @@ export default {
 
         },
 
+        article_search: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('article_search/updateArticles', payload.items, { root: true });
+            }
+
+        },
+
         tag_list: (context, payload) => {
 
+            // console.log('tag_list');
             if (payload.success == 1) {
                 context.commit('tag/update', payload.items, { root: true });
             }
@@ -232,6 +253,27 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_TAG_002", { root: true })
                 context.dispatch('tag/list', {}, { root: true });
+            }
+
+        },
+
+        tag_get: (context, payload) => {
+
+            // console.log('tag_get');
+            if (payload.success == 1) {
+                context.commit('tag/updateOnlyForSingleArticle', payload.items, { root: true });
+            }
+
+        },
+
+        tag_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_TAG_004", { root: true })
+                // console.log('tag_set');
+                context.dispatch('tag/get', {
+                    id: payload.id
+                }, { root: true });
             }
 
         },

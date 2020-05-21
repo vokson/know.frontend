@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-2 ">
+      <div class="col-2">
         <div class="row article_reader_left_column">#{{articleUin}} v.{{articleVersion}}</div>
         <div class="row article_reader_left_column">{{articleOwner}}</div>
         <div class="row article_reader_left_column">{{formatDate(articleDate)}}</div>
@@ -38,6 +38,17 @@
         </div>
         <div class="row article_reader_left_column">
           <button type="button" class="btn btn-success" v-on:click="createNewInEditor">Новая</button>
+        </div>
+
+        <br />
+        <br />
+
+        <div
+          v-for="(tag, index) in articleTags"
+          :key="`tag-${index}`"
+          class="row article_reader_left_column"
+        >
+          <span class="badge badge-primary">{{tag}}</span>
         </div>
       </div>
 
@@ -104,6 +115,10 @@ export default {
 
     articleDate: function() {
       return this.$store.getters["article/giveDate"];
+    },
+
+    articleTags: function() {
+      return this.$store.getters["tag/giveOnlyForSingleArticle"];
     }
   },
 
@@ -174,7 +189,23 @@ export default {
       this.$router.push({
         name: "article_editor"
       });
+    },
+
+    getArticleTags: function() {
+      this.$store.dispatch("tag/get", {
+        id: this.articleUin
+      });
     }
+  },
+
+  watch: {
+    articleUin: function() {
+      if (this.articleUin !== null) this.getArticleTags();
+    }
+
+    // isRecordForTitleToBeShown: function() {
+    //   this.showRecordForTitle();
+    // }
   }
 };
 </script>

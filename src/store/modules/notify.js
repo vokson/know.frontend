@@ -98,6 +98,18 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_TAG_003":
+            return {
+                text: "Статья не имеет ID. Сначала нужно ее сохранить",
+                type: "success"
+            }
+
+        case "E_TAG_004":
+            return {
+                text: "Ключевые слова сохранены",
+                type: "success"
+            }
+
 
         case '0.0':
             return {
@@ -347,6 +359,13 @@ let getText = function (code) {
             return {
                 title: "Ошибка добавления тэга 6.4",
                 text: "Тэг с данным именем не существует.",
+                type: "error"
+            }
+
+        case '6.5':
+            return {
+                title: "Ошибка валидации тэга 6.5",
+                text: "Неверные данные в поле items.",
                 type: "error"
             }
 

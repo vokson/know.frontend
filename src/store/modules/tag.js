@@ -2,18 +2,27 @@ export default {
     namespaced: true,
 
     state: {
-        items: null
+        items: null,
+        itemsForArticle: []
     },
 
     getters: {
         give: function (state) {
             return state.items;
+        },
+
+        giveOnlyForSingleArticle: function (state) {
+            return state.itemsForArticle;
         }
     },
 
     mutations: {
         update: function (state, data) {
             state.items = data;
+        },
+
+        updateOnlyForSingleArticle: function (state, data) {
+            state.itemsForArticle = data;
         },
     },
 
@@ -53,17 +62,32 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
-        // set: (context) => {
+        get: (context, payload) => {
 
-        //     let parameters = {
-        //         queryName: "setting_set",
-        //         data: {
-        //             items: context.state.items
-        //         },
-        //     };
+            let parameters = {
+                queryName: "tag_get",
+                data: {
+                    id: payload.id
+                },
+            };
 
-        //     context.dispatch('query/send', parameters, { root: true })
-        // },
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+
+        set: (context, payload) => {
+
+            let parameters = {
+                queryName: "tag_set",
+                data: {
+                    id: payload.id,
+                    items: payload.items
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
 
     }
 

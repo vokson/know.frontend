@@ -19,10 +19,13 @@ let urls = {
 
     article_get: "/article/get",
     article_set: "/article/set",
+    article_search: "/article/search",
 
     tag_list: "/tag/list",
     tag_create: "/tag/create",
     tag_delete: "/tag/delete",
+    tag_get: "/tag/get",
+    tag_set: "/tag/set",
 
 
     service_database_backup: '/service/database/backup',

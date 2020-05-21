@@ -9,7 +9,7 @@
 
       <div class="row" />
 
-      <div v-for="(item, index) in items" :key="`role-${index}`" class="row align-items-center">
+      <div v-for="(item, index) in items" :key="`tag-${index}`" class="row align-items-center">
         <div class="col-8">
           <p>{{item}}</p>
         </div>

@@ -9,6 +9,7 @@ import setting from "./modules/setting";
 import users from "./modules/users";
 import action from "./modules/action";
 import article from "./modules/article";
+import article_search from "./modules/article_search";
 import tag from "./modules/tag";
 
 Vue.use(Vuex)
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     users,
     action,
     article,
-    tag
+    tag,
+    article_search
   }
 
 })
