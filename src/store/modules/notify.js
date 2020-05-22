@@ -110,6 +110,12 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_SEARCH_001":
+            return {
+                text: "Пустой запрос. Введите что-нибудь",
+                type: "error"
+            }
+
 
         case '0.0':
             return {
@@ -330,6 +336,13 @@ let getText = function (code) {
             return {
                 title: "Ошибка валидации статьи 5.9",
                 text: "Неверные данные в поле version.",
+                type: "error"
+            }
+
+        case '5.10':
+            return {
+                title: "Ошибка валидации статьи 5.10",
+                text: "Неверные данные в запросе.",
                 type: "error"
             }
 
