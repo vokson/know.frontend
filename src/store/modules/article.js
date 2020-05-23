@@ -124,6 +124,19 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
+        delete: (context) => {
+
+            let parameters = {
+                queryName: "article_delete",
+                data: {
+                    uin: context.state.uin,
+                    version: context.state.version,
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
     }
 
 }

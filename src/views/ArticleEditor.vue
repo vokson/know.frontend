@@ -85,6 +85,16 @@
         <button
           type="button"
           class="btn btn-block btn-danger"
+          v-on:click="deleteArticle"
+        >Удалить</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <button
+          type="button"
+          class="btn btn-block btn-warning"
           v-on:click="gotoReader"
         >Читать (не забудь сохранить)</button>
       </div>
@@ -295,6 +305,10 @@ export default {
       this.$store.dispatch("article/set", {});
     },
 
+     deleteArticle: function() {
+      this.$store.dispatch("article/delete", {});
+    },
+
     newArticle: function() {
       this.$store.commit("article/new", {});
     },
@@ -326,7 +340,7 @@ export default {
           return (tag);
         });
 
-        console.log(arr);
+        // console.log(arr);
 
       this.$store.dispatch("tag/set", {
         id: this.articleUin,

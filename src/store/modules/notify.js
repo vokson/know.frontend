@@ -86,6 +86,12 @@ let getText = function (code) {
                 type: "success"
             }
 
+        case "E_ARTICLE_002":
+            return {
+                text: "Статья удалена",
+                type: "success"
+            }
+
         case "E_TAG_001":
             return {
                 text: "Ключевое слово добавлено",

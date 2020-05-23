@@ -27,6 +27,25 @@ Vue.component("editor", VueEditor);
 
 Vue.config.productionTip = false
 
+// Проверка возможности доступа по url
+router.beforeEach((to, from, next) => {
+
+  store.commit('roles/path', {
+      path: to.path,
+      role: (store.getters['auth/giveRole'] == undefined) ? 'guest' : store.getters['auth/giveRole']
+  });
+
+  if (store.getters['roles/mayEnter'] == false) {
+
+      store.dispatch('notify/showNotifyByCode', '1.5');
+      next({ name: 'login' })
+
+  } else {
+      next();
+  }
+});
+
+
 new Vue({
   router,
   store,

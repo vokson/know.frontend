@@ -33,19 +33,19 @@ const routes = [
   },
 
   {
-    path: '/setting',
+    path: '/admin/setting',
     name: 'setting',
     component: Setting
   },
 
   {
-    path: '/user',
+    path: '/admin/user',
     name: 'user',
     component: User
   },
 
   {
-    path: '/action',
+    path: '/admin/action',
     name: 'action',
     component: Action
   },

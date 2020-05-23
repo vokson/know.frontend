@@ -19,6 +19,7 @@ let urls = {
 
     article_get: "/article/get",
     article_set: "/article/set",
+    article_delete: "/article/delete",
     article_search: "/article/search",
 
     tag_list: "/tag/list",
@@ -26,6 +27,7 @@ let urls = {
     tag_delete: "/tag/delete",
     tag_get: "/tag/get",
     tag_set: "/tag/set",
+    tag_list_by_article: "/tag/list/by/article",
 
 
     service_database_backup: '/service/database/backup',

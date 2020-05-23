@@ -6,7 +6,7 @@
         <div class='col-8'>
           <div class='row'>
             <div class="col">
-              <h3 >СтроЗнайка
+              <h3 >Знайка
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
             </div>

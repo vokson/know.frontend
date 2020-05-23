@@ -11,6 +11,7 @@ import action from "./modules/action";
 import article from "./modules/article";
 import article_search from "./modules/article_search";
 import tag from "./modules/tag";
+import roles from "./modules/roles";
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default new Vuex.Store({
     action,
     article,
     tag,
-    article_search
+    article_search,
+    roles
   }
 
 })

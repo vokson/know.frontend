@@ -9,13 +9,13 @@
         </div>
       </div>
 
-      <div class="row" v-on:keyup.enter.prevent="login">
+      <div class="row" >
         <div class="col-2">
-          <input type="e-mail" name="email" v-model="email" placeholder="E-mail" />
+          <input v-on:keyup.enter="login" type="e-mail" name="email" v-model="email" placeholder="E-mail" />
         </div>
 
         <div class="col-2">
-          <input type="password" name="password" v-model="password" placeholder="Password" />
+          <input v-on:keyup.enter="login" type="password" name="password" v-model="password" placeholder="Password" />
         </div>
 
         <div class="col-6" />

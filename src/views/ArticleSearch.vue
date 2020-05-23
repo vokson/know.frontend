@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <div class="article_link" v-on:click="switchIsSearchRulesShown">Правила поиска</div>
+        <div class="article_search_link" v-on:click="switchIsSearchRulesShown">Правила поиска</div>
       </div>
     </div>
 
@@ -32,18 +32,33 @@
           <input v-on:keyup.enter="search" type="text" class="form-control" v-model="query" />
         </div>
 
-        <div v-for="article in articles" :key="article.uin" class="row">
-          <div class="col">
-            <div
-              class="row colored"
-            >#{{article.uin}} v.{{article.version}} от {{formatDate(article.date)}} - {{article.owner}}</div>
-            <div class="row">
-              <h4
-                class="article_link"
-                v-on:click="gotoReader(article.uin, article.version)"
-              >{{article.subject}}</h4>
+        <div class="row">
+          <div class="col-10">
+            <div v-for="article in articles" :key="article.uin" class="row">
+              <div class="col">
+                <div
+                  class="row article_search_colored"
+                >#{{article.uin}} v.{{article.version}} от {{formatDate(article.date)}} - {{article.owner}}</div>
+                <div class="row">
+                  <h4
+                    class="article_search_link"
+                    v-on:click="gotoReader(article.uin, article.version)"
+                  >{{article.subject}}</h4>
+                </div>
+                <div class="row" v-html="cutText(article.lowered_body)"></div>
+              </div>
             </div>
-            <div class="row" v-html="cutText(article.body)"></div>
+          </div>
+
+          <div class="col-2">
+            <div v-if="(allTags.length > 0)" class="row">
+              <button type="button" class="btn btn-primary btn-block" v-on:click="setChosenTags">Фильтр</button>
+            </div>
+
+            <div v-for="(elem) in mixedTags" :key="elem.name" class="row align-items-center article_search_checkbox_block ">
+              <input type="checkbox" id="checkbox" v-model="elem.isChecked" />
+              <label class="article_search_checkbox_label" for="checkbox">{{ elem.name }}</label>
+            </div>
           </div>
         </div>
       </div>
@@ -83,6 +98,23 @@ export default {
 
     isProgress: function() {
       return this.$store.getters["article_search/giveIsProgress"];
+    },
+
+    allTags: function() {
+      return this.$store.getters["article_search/giveTags"];
+    },
+
+    mixedTags: function() {
+      if (this.allTags === null) return [];
+
+      let result = [];
+
+      this.allTags.forEach(tagName => {
+        let elem = { name: tagName, isChecked: false };
+        result.push(elem);
+      });
+
+      return result;
     }
   },
 
@@ -126,6 +158,20 @@ export default {
 
     cutText: function(text) {
       return text.substring(0, this.bodyLength);
+    },
+
+    setChosenTags: function() {
+      let arr = this.mixedTags
+        .map(function(tag) {
+          if (tag.isChecked === true) return tag.name;
+        })
+        .filter(function(tag) {
+          return tag;
+        });
+
+      // console.log(arr);
+
+      this.$store.commit("article_search/updateChosenTags", arr);
     }
   },
 
@@ -134,11 +180,22 @@ export default {
 </script>
 
 <style>
-.colored {
+.article_search_colored {
   color: red;
 }
-.article_link {
+
+.article_search_link {
   cursor: pointer;
   color: darkblue;
 }
+
+.article_search_checkbox_label {
+  padding-left: 5px;
+}
+
+.article_search_checkbox_block {
+  padding-left: 5px;
+}
+
+
 </style>

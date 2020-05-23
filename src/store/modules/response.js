@@ -67,6 +67,10 @@ export default {
                         context.dispatch("article_set", payload);
                         break;
 
+                    case "article_delete":
+                        context.dispatch("article_delete", payload);
+                        break;
+
                     case "article_search":
                         context.dispatch("article_search", payload);
                         break;
@@ -89,6 +93,10 @@ export default {
 
                     case "tag_set":
                         context.dispatch("tag_set", payload);
+                        break;
+
+                    case "tag_list_by_article":
+                        context.dispatch("tag_list_by_article", payload);
                         break;
 
 
@@ -210,6 +218,23 @@ export default {
 
         },
 
+        article_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_ARTICLE_002", { root: true })
+
+                if (payload.version == 1) {
+                    context.commit('article/new', {}, { root: true });
+
+                } else {
+                    context.dispatch('article/get', {
+                        uin: payload.uin
+                    }, { root: true });
+                }
+            }
+
+        },
+
         article_set: (context, payload) => {
 
             if (payload.success == 1) {
@@ -225,7 +250,8 @@ export default {
         article_search: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('article_search/updateArticles', payload.items, { root: true });
+                // context.commit('article_search/updateArticles', payload.items, { root: true });
+                context.dispatch('article_search/setArticles', payload.items, { root: true });
             }
 
         },
@@ -274,6 +300,14 @@ export default {
                 context.dispatch('tag/get', {
                     id: payload.id
                 }, { root: true });
+            }
+
+        },
+
+        tag_list_by_article: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('article_search/updateTags', payload, { root: true });
             }
 
         },
