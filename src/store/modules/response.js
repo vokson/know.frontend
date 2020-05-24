@@ -99,6 +99,19 @@ export default {
                         context.dispatch("tag_list_by_article", payload);
                         break;
 
+                    case "article_file_get":
+                        context.dispatch("article_file_get", payload);
+                        break;
+
+                    case "article_file_upload":
+                        context.dispatch("article_file_upload", payload);
+                        break;
+
+                    case "article_file_delete":
+                        context.dispatch("article_file_delete", payload);
+                        break;
+
+
 
 
                     default:
@@ -308,6 +321,36 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('article_search/updateTags', payload, { root: true });
+            }
+
+        },
+
+        article_file_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('article_file/update', payload.items, { root: true });
+            }
+
+        },
+
+        article_file_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true });
+                context.commit('article_file/deleteSuccess', payload.uin, { root: true });
+
+            }
+
+        },
+
+        article_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_FILE_001", { root: true });
+                context.commit('article_file/uploadSuccess', payload, { root: true });
+
             }
 
         },

@@ -122,6 +122,42 @@ let getText = function (code) {
                 type: "error"
             }
 
+        case "E_FILE_001":
+            return {
+                text: "Файл сохранен",
+                type: "success"
+            }
+
+        case "E_FILE_002":
+            return {
+                text: "Файл удален",
+                type: "success"
+            }
+
+        case "E_FILE_003":
+            return {
+                text: "ID статьи не определен. Сначала сохраните статью.",
+                type: "warning"
+            }
+
+        case "E_FILE_004":
+            return {
+                text: "Превышен максимальный размер файла",
+                type: "error"
+            }
+
+        // case "E_FILE_005":
+        //     return {
+        //         text: "Файлы были успешно очищены",
+        //         type: "success"
+        //     }
+
+        // case "E_FILE_006":
+        //     return {
+        //         text: "Список файлов пуст",
+        //         type: "error"
+        //     }
+
 
         case '0.0':
             return {
@@ -385,6 +421,62 @@ let getText = function (code) {
             return {
                 title: "Ошибка валидации тэга 6.5",
                 text: "Неверные данные в поле items.",
+                type: "error"
+            }
+
+        case '7.1':
+            return {
+                title: "Ошибка загрузки/скачивания файла статьи 7.1",
+                text: "Неверные данные в поле article_id.",
+                type: "error"
+            }
+
+        case '7.2':
+            return {
+                title: "Ошибка загрузки/скачивания файла статьи 7.2",
+                text: "Неверные данные в поле uin.",
+                type: "error"
+            }
+
+        case '7.3':
+            return {
+                title: "Ошибка загрузки файла в статью 7.3",
+                text: "Ошибка сохранения файла на сервере",
+                type: "error"
+            }
+
+        case '7.4':
+            return {
+                title: "Ошибка загрузки файла в статью 7.4",
+                text: "Сервер получил файл, но файл был поврежден во время передачи",
+                type: "error"
+            }
+
+        case '7.5':
+            return {
+                title: "Ошибка загрузки файла в статью 7.5",
+                text: "Сервер не получил файл",
+                type: "error"
+            }
+
+        case '7.6':
+            return {
+                title: "Ошибка загрузки файла в статью 7.6",
+                text: "Статьи с данным ID не существует",
+                type: "error"
+            }
+
+            case '7.7':
+            return {
+                title: "Ошибка скачивания файла статьи 7.7",
+                text: "Файл не существует в базе данных",
+                type: "error"
+            }
+
+            case '7.8':
+            return {
+                title: "Ошибка скачивания файла статьи 7.8",
+                text: "Файл не существует на сервере",
                 type: "error"
             }
 

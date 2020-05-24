@@ -195,12 +195,21 @@ export default {
       this.$store.dispatch("tag/get", {
         id: this.articleUin
       });
-    }
+    },
+
+    getFiles: function() {
+      this.$store.dispatch("article_file/get", {
+        article_id: this.articleUin
+      });
+    },
   },
 
   watch: {
-    articleUin: function() {
-      if (this.articleUin !== null) this.getArticleTags();
+     articleUin: function() {
+      if (this.articleUin !== null) {
+        this.getArticleTags();
+        this.getFiles();
+      }
     }
 
     // isRecordForTitleToBeShown: function() {

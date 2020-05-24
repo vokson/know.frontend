@@ -10,6 +10,7 @@ import users from "./modules/users";
 import action from "./modules/action";
 import article from "./modules/article";
 import article_search from "./modules/article_search";
+import article_file from "./modules/article_file";
 import tag from "./modules/tag";
 import roles from "./modules/roles";
 
@@ -29,7 +30,8 @@ export default new Vuex.Store({
     article,
     tag,
     article_search,
-    roles
+    roles,
+    article_file
   }
 
 })

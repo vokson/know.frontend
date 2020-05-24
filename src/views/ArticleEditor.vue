@@ -21,19 +21,16 @@
         ></editor>
         <div
           v-else
-          id="log-drop-area"
+          id="article-drop-area"
         >{{'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')'}}</div>
       </div>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
       <div class="col-4"></div>
       <div class="col-8">
-        <div v-if="(targetItem.id != null) && (attachedFiles.length > 0)">
-          <a
-            href="#"
-            v-on:click="downloadAllFiles"
-          >Скачать все файлы zip архивом</a>
+        <div v-if="(articleUin != null) && (attachedFiles.length > 0)">
+          <a href="#" v-on:click="downloadAllFiles">Скачать все файлы zip архивом</a>
         </div>
 
         <div class="row" v-for="item in attachedFiles" :key="item.uin">
@@ -60,7 +57,7 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
 
     <!-- <br /> -->
 
@@ -82,11 +79,7 @@
 
     <div class="row">
       <div class="col-12">
-        <button
-          type="button"
-          class="btn btn-block btn-danger"
-          v-on:click="deleteArticle"
-        >Удалить</button>
+        <button type="button" class="btn btn-block btn-danger" v-on:click="deleteArticle">Удалить</button>
       </div>
     </div>
 
@@ -164,32 +157,30 @@ export default {
         this.getArticle({
           uin: this.$route.params.uin
         });
+        this.getFiles();
+
       } else {
         this.newArticle();
       }
 
-      // this.getTitles();
-      // this.getUsers();
-      // this.targetItem.from = this.$store.state.user.id;
-      // this.targetItem.to = 0;
       // Очищаем установленные по умолчанию обработчики событий
-      // let dropArea = document.getElementById("col-drop-area");
-      // function preventDefaults(e) {
-      //   e.preventDefault();
-      //   e.stopPropagation();
-      // }
-      // ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
-      //   dropArea.addEventListener(eventName, preventDefaults, false);
-      // });
-      // ["dragenter", "dragover"].forEach(eventName => {
-      //   dropArea.addEventListener(eventName, this.startDragging, false);
-      // });
-      // ["dragleave", "drop"].forEach(eventName => {
-      //   dropArea.addEventListener(eventName, this.stopDragging, false);
-      // });
-      // ["drop"].forEach(eventName => {
-      //   dropArea.addEventListener(eventName, this.handleDrop, false);
-      // });
+      let dropArea = document.getElementById("col-drop-area");
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+      ["dragenter", "dragover"].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.startDragging, false);
+      });
+      ["dragleave", "drop"].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.stopDragging, false);
+      });
+      ["drop"].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.handleDrop, false);
+      });
     });
   },
 
@@ -257,7 +248,7 @@ export default {
       });
 
       return result;
-    }
+    },
 
     // titles: function() {
     //   return this.$store.getters["title/give"];
@@ -271,9 +262,9 @@ export default {
     //   return this.items == null ? 0 : this.items.length;
     // },
 
-    // attachedFiles: function() {
-    //   return this.$store.getters["log_file/give"];
-    // },
+    attachedFiles: function() {
+      return this.$store.getters["article_file/give"];
+    }
 
     // // uploadingFiles: function () {
     // //   return this.$store.getters['log_file/giveUploadingItems'];
@@ -305,7 +296,7 @@ export default {
       this.$store.dispatch("article/set", {});
     },
 
-     deleteArticle: function() {
+    deleteArticle: function() {
       this.$store.dispatch("article/delete", {});
     },
 
@@ -337,10 +328,10 @@ export default {
           if (tag.isChecked === true) return tag.name;
         })
         .filter(function(tag) {
-          return (tag);
+          return tag;
         });
 
-        // console.log(arr);
+      // console.log(arr);
 
       this.$store.dispatch("tag/set", {
         id: this.articleUin,
@@ -362,7 +353,7 @@ export default {
           version: this.articleVersion
         }
       });
-    }
+    },
 
     // formatDate: function(timestamp) {
     //   let date = new Date();
@@ -404,29 +395,29 @@ export default {
     //   this.$store.dispatch("log/getItems", queryObject);
     // },
 
-    // getFiles: function() {
-    //   this.$store.dispatch("log_file/get", {
-    //     log_id: this.targetItem.id
-    //   });
-    // },
+    getFiles: function() {
+      this.$store.dispatch("article_file/get", {
+        article_id: this.articleUin
+      });
+    },
 
-    // deleteFile: function(file_id) {
-    //   this.$store.dispatch("log_file/delete", {
-    //     id: file_id
-    //   });
-    // },
+    deleteFile: function(file_id) {
+      this.$store.dispatch("article_file/delete", {
+        id: file_id // TODO
+      });
+    },
 
-    // downloadFile: function(file_id) {
-    //   this.$store.dispatch("log_file/download", {
-    //     id: file_id
-    //   });
-    // },
+    downloadFile: function(file_id) {
+      this.$store.dispatch("article_file/download", {
+        file_id: file_id
+      });
+    },
 
-    // downloadAllFiles: function() {
-    //   this.$store.dispatch("log_file/downloadAll", {
-    //     id: this.targetItem.id
-    //   });
-    // },
+    downloadAllFiles: function() {
+      this.$store.dispatch("article_file/downloadAll", {
+        id: this.targetItem.id // TODO
+      });
+    },
 
     // getTargetItemTitleId: function() {
     //   //    Ищем id от title
@@ -536,94 +527,94 @@ export default {
     //   this.targetItem.date = new Date();
     // },
 
-    // startDragging: function() {
-    //   this.isDragging = true;
-    // },
+    startDragging: function() {
+      this.isDragging = true;
+    },
 
-    // stopDragging: function() {
-    //   this.isDragging = false;
-    // },
+    stopDragging: function() {
+      this.isDragging = false;
+    },
 
-    // uploadFile: function(file) {
-    //   if (this.targetItem.id == null) {
-    //     this.$store.dispatch("notify/showNotifyByCode", "E_FILE_003", {
-    //       root: true
-    //     });
-    //     return;
-    //   }
+    uploadFile: function(file) {
+      if (this.articleUin == null) {
+        this.$store.dispatch("notify/showNotifyByCode", "E_FILE_003", {
+          root: true
+        });
+        return;
+      }
 
-    //   if (file.size > this.maxFileSize) {
-    //     this.$store.dispatch("notify/showNotifyByCode", "E_FILE_004", {
-    //       root: true
-    //     });
-    //     return;
-    //   }
+      if (file.size > this.maxFileSize) {
+        this.$store.dispatch("notify/showNotifyByCode", "E_FILE_004", {
+          root: true
+        });
+        return;
+      }
 
-    //   let uin = this.guid();
-    //   let progressCallback = this.updateProgress.bind(this);
+      let uin = this.guid();
+      let progressCallback = this.updateProgress.bind(this);
 
-    //   let badUploadFunction = function() {
-    //     this.$store.commit("log_file/deleteSuccess", uin, { root: true });
-    //   };
+      let badUploadFunction = function() {
+        this.$store.commit("article_file/deleteSuccess", uin, { root: true });
+      };
 
-    //   this.$store.dispatch("log_file/upload", {
-    //     log_file: file,
-    //     log_id: this.targetItem.id,
-    //     uin: uin,
+      this.$store.dispatch("article_file/upload", {
+        file: file,
+        article_id: this.articleUin,
+        uin: uin,
 
-    //     progressCallback: function(e) {
-    //       progressCallback(uin, e.loaded, e.total);
-    //     },
+        progressCallback: function(e) {
+          progressCallback(uin, e.loaded, e.total);
+        },
 
-    //     badFileUploadCallback: badUploadFunction.bind(this)
-    //   });
-    // },
+        badFileUploadCallback: badUploadFunction.bind(this)
+      });
+    },
 
-    // handleDrop: function(e) {
-    //   let dt = e.dataTransfer;
-    //   let files = dt.files;
-    //   files = [...files];
-    //   files.forEach(this.uploadFile);
-    // },
+    handleDrop: function(e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      files = [...files];
+      files.forEach(this.uploadFile);
+    },
 
-    // formatBytes: function(bytes, decimals) {
-    //   if (bytes == 0) return "0 Bytes";
-    //   var k = 1024,
-    //     dm = decimals || 2,
-    //     sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-    //     i = Math.floor(Math.log(bytes) / Math.log(k));
-    //   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-    // },
+    formatBytes: function(bytes, decimals) {
+      if (bytes == 0) return "0 Bytes";
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    },
 
-    // guid: function() {
-    //   function s4() {
-    //     return Math.floor((1 + Math.random()) * 0x10000)
-    //       .toString(16)
-    //       .substring(1);
-    //   }
-    //   return (
-    //     s4() +
-    //     s4() +
-    //     "-" +
-    //     s4() +
-    //     "-" +
-    //     s4() +
-    //     "-" +
-    //     s4() +
-    //     "-" +
-    //     s4() +
-    //     s4() +
-    //     s4()
-    //   );
-    // },
+    guid: function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return (
+        s4() +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        s4() +
+        s4()
+      );
+    },
 
-    // updateProgress: function(uin, uploadedBytes, totalBytes) {
-    //   this.$store.commit("log_file/updateProgress", {
-    //     uin: uin,
-    //     size: totalBytes,
-    //     uploadedSize: uploadedBytes
-    //   });
-    // },
+    updateProgress: function(uin, uploadedBytes, totalBytes) {
+      this.$store.commit("article_file/updateProgress", {
+        uin: uin,
+        size: totalBytes,
+        uploadedSize: uploadedBytes
+      });
+    }
 
     // switchNewMessageSearchCheckBox: function() {
     //   this.search.is_new = this.search.is_new === null ? true : null;
@@ -680,7 +671,10 @@ export default {
 
   watch: {
     articleUin: function() {
-      if (this.articleUin !== null) this.getArticleTags();
+      if (this.articleUin !== null) {
+        this.getArticleTags();
+        this.getFiles();
+      }
     }
 
     // isRecordForTitleToBeShown: function() {
@@ -703,7 +697,7 @@ export default {
   text-align: center;
 } */
 
-#log-drop-area {
+#article-drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;

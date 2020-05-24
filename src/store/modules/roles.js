@@ -16,7 +16,7 @@ let editor = [
 ];
 
 let admin = [
-    '/admin'
+    '?/admin'
 ];
 
 let permissions = {

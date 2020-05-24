@@ -22,6 +22,10 @@ let urls = {
     article_delete: "/article/delete",
     article_search: "/article/search",
 
+    article_file_upload: "/article/file/upload",
+    article_file_get: "/article/file/get",
+    article_file_download: "/article/file/download",
+
     tag_list: "/tag/list",
     tag_create: "/tag/create",
     tag_delete: "/tag/delete",
