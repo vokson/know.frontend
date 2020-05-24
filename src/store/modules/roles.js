@@ -6,7 +6,7 @@ let guest = [
 let reader = [
     '/home',
     '/article/search',
-    '?/article/read'
+    '?/article/read',
 
 ];
 

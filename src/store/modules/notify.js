@@ -388,6 +388,13 @@ let getText = function (code) {
                 type: "error"
             }
 
+        case '5.11':
+            return {
+                title: "Ошибка удаления статьи 5.11",
+                text: "Нельзя удалить статью, к которой прикреплены файлы",
+                type: "error"
+            }
+
         // TAG
         case '6.1':
             return {
@@ -466,17 +473,34 @@ let getText = function (code) {
                 type: "error"
             }
 
-            case '7.7':
+        case '7.7':
             return {
                 title: "Ошибка скачивания файла статьи 7.7",
                 text: "Файл не существует в базе данных",
                 type: "error"
             }
 
-            case '7.8':
+        case '7.8':
             return {
                 title: "Ошибка скачивания файла статьи 7.8",
                 text: "Файл не существует на сервере",
+                type: "error"
+            }
+
+        case '7.9':
+            return {
+                title: "Ошибка удаления файла 7.9",
+                text: "Ошибка удаления файла на сервере",
+                type: "error"
+            }
+
+
+
+
+        case '8.1':
+            return {
+                title: "Ошибка ZIP 8.1",
+                text: "ZIP архив не может быть создан",
                 type: "error"
             }
 

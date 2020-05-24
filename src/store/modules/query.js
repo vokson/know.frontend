@@ -25,6 +25,8 @@ let urls = {
     article_file_upload: "/article/file/upload",
     article_file_get: "/article/file/get",
     article_file_download: "/article/file/download",
+    article_file_download_all: "/article/file/download/all",
+    article_file_delete: "/article/file/delete",
 
     tag_list: "/tag/list",
     tag_create: "/tag/create",

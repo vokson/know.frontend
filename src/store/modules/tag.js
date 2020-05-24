@@ -24,6 +24,11 @@ export default {
         updateOnlyForSingleArticle: function (state, data) {
             state.itemsForArticle = data;
         },
+
+        
+        newArticle: function (state) {
+            state.itemsForArticle = [];
+        },
     },
 
     actions: {
@@ -67,7 +72,7 @@ export default {
             let parameters = {
                 queryName: "tag_get",
                 data: {
-                    id: payload.id
+                    article_id: payload.article_id
                 },
             };
 
@@ -80,7 +85,7 @@ export default {
             let parameters = {
                 queryName: "tag_set",
                 data: {
-                    id: payload.id,
+                    article_id: payload.article_id,
                     items: payload.items
                 },
             };

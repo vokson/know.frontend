@@ -60,6 +60,38 @@
         <div class="row">
           <div v-html="articleBody"></div>
         </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div v-if="(articleUin != null) && (attachedFiles.length > 0)">
+              <a href="#" v-on:click="downloadAllFiles">Скачать все файлы zip архивом</a>
+            </div>
+
+            <div class="row" v-for="item in attachedFiles" :key="item.uin">
+              <div class="col-1">
+                <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
+                <span
+                  v-else
+                  class="badge badge-warning"
+                >{{ Math.round(item.uploadedSize/item.size*100)}}%</span>
+              </div>
+
+              <div class="col-7" v-if="item.id != null">
+                <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
+              </div>
+              <div class="col-9" v-else>{{item.original_name}}</div>
+
+              <div class="col-2">{{formatBytes(item.size)}}</div>
+              <div class="col-1" v-if="item.id != null">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  v-on:click="deleteFile(item.id)"
+                >Удалить</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -81,6 +113,11 @@ export default {
         uin: this.$route.params.uin,
         version: this.$route.params.version
       });
+
+      // if (this.$route.params.uin) {
+      //   this.getFiles();
+      // }
+
     });
   },
 
@@ -119,10 +156,23 @@ export default {
 
     articleTags: function() {
       return this.$store.getters["tag/giveOnlyForSingleArticle"];
+    },
+
+    attachedFiles: function() {
+      return this.$store.getters["article_file/give"];
     }
   },
 
   methods: {
+    formatBytes: function(bytes, decimals) {
+      if (bytes == 0) return "0 Bytes";
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    },
+
     formatDate: function(timestamp) {
       let date = new Date();
       date.setTime(timestamp * 1000); // переводим в миллисекунды
@@ -193,7 +243,7 @@ export default {
 
     getArticleTags: function() {
       this.$store.dispatch("tag/get", {
-        id: this.articleUin
+        article_id: this.articleUin
       });
     },
 
@@ -202,19 +252,27 @@ export default {
         article_id: this.articleUin
       });
     },
+
+    downloadFile: function(file_id) {
+      this.$store.dispatch("article_file/download", {
+        file_id: file_id
+      });
+    },
+
+    downloadAllFiles: function() {
+      this.$store.dispatch("article_file/downloadAll", {
+        article_id: this.articleUin
+      });
+    }
   },
 
   watch: {
-     articleUin: function() {
+    articleUin: function() {
       if (this.articleUin !== null) {
         this.getArticleTags();
         this.getFiles();
       }
     }
-
-    // isRecordForTitleToBeShown: function() {
-    //   this.showRecordForTitle();
-    // }
   }
 };
 </script>

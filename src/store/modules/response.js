@@ -311,7 +311,7 @@ export default {
                 context.dispatch('notify/showNotifyByCode', "E_TAG_004", { root: true })
                 // console.log('tag_set');
                 context.dispatch('tag/get', {
-                    id: payload.id
+                    article_id: payload.article_id
                 }, { root: true });
             }
 

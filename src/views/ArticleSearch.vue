@@ -132,7 +132,7 @@ export default {
     },
 
     search: function() {
-      if (this.query == "") {
+      if (this.query.trim() == "") {
         this.$store.dispatch("notify/showNotifyByCode", "E_SEARCH_001", {
           root: true
         });

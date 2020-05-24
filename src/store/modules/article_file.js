@@ -60,6 +60,10 @@ export default {
 
         },
 
+        newArticle: function (state) {
+            state.items = [];
+        },
+
 
     },
 
@@ -70,7 +74,7 @@ export default {
             let parameters = {
                 queryName: "article_file_delete",
                 data: {
-                    id: payload.id
+                    file_id: payload.file_id
                 },
             };
 
@@ -109,7 +113,7 @@ export default {
             let parameters = {
                 queryName: "article_file_download_all",
                 data: {
-                    id: payload.id
+                    article_id: payload.article_id
                 }
             };
 
@@ -134,6 +138,8 @@ export default {
 
             context.dispatch('query/sendInOrderToUploadFile', parameters, { root: true })
         },
+
+        
 
     }
 
