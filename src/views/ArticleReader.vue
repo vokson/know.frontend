@@ -82,13 +82,13 @@
               <div class="col-9" v-else>{{item.original_name}}</div>
 
               <div class="col-2">{{formatBytes(item.size)}}</div>
-              <div class="col-1" v-if="item.id != null">
+              <!-- <div class="col-1" v-if="item.id != null">
                 <button
                   type="button"
                   class="btn btn-danger btn-sm"
                   v-on:click="deleteFile(item.id)"
                 >Удалить</button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

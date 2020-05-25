@@ -1,18 +1,17 @@
 let guest = [
     '/',
-    '/login',
-];
-
-let reader = [
     '/home',
-    '/article/search',
+    '/login',
     '?/article/read',
-
+    '/article/search',
 ];
+
+let reader = [];
 
 let editor = [
     '/tag',
-    '?/article/edit'
+    '?/article/edit',
+    
 ];
 
 let admin = [

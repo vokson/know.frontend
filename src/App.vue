@@ -8,11 +8,9 @@
     >
       <b-nav-item :to="{ name: 'home' }">Начало</b-nav-item>
       <b-nav-item :to="{ name: 'login' }">Вход</b-nav-item>
-      <!-- <b-nav-item :to="{ name: 'article_editor' }">Статья - Редактирование</b-nav-item> -->
-      <!-- <b-nav-item :to="{ name: 'article_reader' }">Статья - Чтение</b-nav-item> -->
       <b-nav-item :to="{ name: 'article_search' }">Статьи</b-nav-item>
-      <b-nav-item :to="{ name: 'tag' }">Тэги</b-nav-item>
-      <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
+      <b-nav-item :to="{ name: 'tag' }" v-if="isTagToBeShown">Тэги</b-nav-item>
+      <b-nav-item :to="{ name: 'admin' }" v-if="isAdminToBeShown">Admin</b-nav-item>
     </b-nav>
 
     <router-view />
@@ -22,59 +20,27 @@
 
 <script>
 
-export default {};
+export default {
 
-//   mounted: function () {
+  computed: {
 
-//     this.$nextTick(function () {
+     role: function () {
+      return this.$store.getters['auth/giveRole'];
+    },
 
-//       // this.$store.commit('setAccessTokenUsingCookie');
-//       // this.$store.dispatch('auth/loginByToken', this.$store.state.user.access_token);
+    isTagToBeShown: function () {
+      return (this.role == 'editor' || this.role == 'admin');
+    },
 
-//     })
-//   },
+    isAdminToBeShown: function () {
+      return (this.role == 'admin');
+    },
+  
+  },
 
-//   computed: {
+  methods: {},
 
-//     // language: function () {
-//     //   return this.$store.state.language;
-//     // },
-
-//     // countOfLogNewMessages: function () {
-//     //   return this.$store.getters['log/giveCountOfNewMessages'];
-//     // },
-
-//     // countOfSenderFolders: function () {
-//     //   return this.$store.getters['sender/giveCountOfFolders'];
-//     // }
-//   },
-
-//   methods: {
-
-//     // refreshCountOfNewMessages: function () {
-//     //   if (this.$store.state.user.access_token != "") {
-//     //     this.$store.dispatch('log/getCountOfNewMessages', {});
-//     //   }
-//     // },
-
-//     // refreshCountOfFolders: function () {
-//     //   if (this.$store.state.user.access_token != "") {
-//     //     this.$store.dispatch('sender/getCountOfFolders', {});
-//     //   }
-//     // },
-
-//     // onNewMessagesClick: function () {
-//     //   this.$store.commit('log/setIsNewMessagesToBeShown', true, { root: true });
-//     // }
-//   },
-
-//   // timers: {
-//   //   refreshCountOfNewMessages: { time: 10000, autostart: true, repeat: true },
-//   //   refreshCountOfFolders: { time: 10000, autostart: true, repeat: true }
-//   // },
-
-
-// };
+};
 </script>
 
 <style>
