@@ -112,7 +112,7 @@
       </div>
 
 
-      <div class="row actual_version_color">
+      <div class="row">
         <div class="col-2">
           <p>1.0.0 - 25.05.2020</p>
         </div>
