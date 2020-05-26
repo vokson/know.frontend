@@ -104,6 +104,16 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>1.0.1 - 26.05.2020</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлена кнопка "Новая статья"</p>
+        </div>
+      </div>
+
+
+      <div class="row actual_version_color">
+        <div class="col-2">
           <p>1.0.0 - 25.05.2020</p>
         </div>
         <div class="col-4">
@@ -124,7 +134,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: "1.0.0"
+      version: "1.0.1"
     };
   },
 
