@@ -54,7 +54,7 @@ new Vue({
 
 window.$axios = axios.create({
   // baseURL: "http://know.backend/api",
-  baseURL: "http://api.know",
+  baseURL: "http://api.know/api",
  // method: 'post', // Перестало работать в axios 0.19
 });
 
