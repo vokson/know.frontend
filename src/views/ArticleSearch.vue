@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-          <input v-on:keyup.enter="search" type="text" class="form-control" v-model="query" />
+          <input v-on:keyup.enter="search" type="text" class="form-control" v-model="query"/>
         </div>
 
         <div class="row">
@@ -74,12 +74,15 @@ export default {
     return {
       date_format: "dd.MM.yyyy",
       isSearchRulesShown: false,
-      bodyLength: 500
+      bodyLength: 500,
+      defaultLimit: 20
     };
   },
 
   mounted: function() {
-    this.$nextTick(function() {});
+    this.$nextTick(function() {
+      this.query = "limit:" + String(this.defaultLimit);
+    });
   },
 
   computed: {
