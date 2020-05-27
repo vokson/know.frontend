@@ -24,7 +24,7 @@
               role="status"
               aria-hidden="true"
             ></span>
-            Поиск
+            Поиск (найдено {{countOfArticles}})
           </button>
         </div>
 
@@ -94,6 +94,10 @@ export default {
 
     articles: function() {
       return this.$store.getters["article_search/giveArticles"];
+    },
+
+    countOfArticles: function() {
+      return (this.articles) ? this.articles.length : 0;
     },
 
     isProgress: function() {
