@@ -53,12 +53,16 @@
       </div>
 
       <div class="col-10">
-        <div class="row">
-          <h3>{{articleSubject}}</h3>
+        <div class="col-12">
+          <div class="row">
+            <h3>{{articleSubject}}</h3>
+          </div>
         </div>
 
         <div class="row">
-          <div v-html="articleBody"></div>
+          <div class="col-12">
+            <div id="article_reader_main_page" v-html="articleBody"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -88,7 +92,7 @@
                   class="btn btn-danger btn-sm"
                   v-on:click="deleteFile(item.id)"
                 >Удалить</button>
-              </div> -->
+              </div>-->
             </div>
           </div>
         </div>
@@ -117,7 +121,6 @@ export default {
       // if (this.$route.params.uin) {
       //   this.getFiles();
       // }
-
     });
   },
 
@@ -294,5 +297,10 @@ export default {
 .article_reader_left_column {
   display: flex;
   justify-content: center;
+}
+
+#article_reader_main_page img {
+  max-width: 100%;
+  height: auto;
 }
 </style>
