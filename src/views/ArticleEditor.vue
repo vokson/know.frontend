@@ -343,7 +343,7 @@ export default {
 
     downloadFile: function(file_id) {
       this.$store.dispatch("article_file/download", {
-        file_id: file_id
+        file_id: file_id,
       });
     },
 
@@ -376,8 +376,8 @@ export default {
         return;
       }
 
-      let uin = this.guid();
-      let progressCallback = this.updateProgress.bind(this);
+      let uin = window.$guid();
+      let progressCallback = this.updateUploadProgress.bind(this);
 
       let badUploadFunction = function() {
         this.$store.commit("article_file/deleteSuccess", uin, { root: true });
@@ -404,43 +404,18 @@ export default {
     },
 
     formatBytes: function(bytes, decimals) {
-      if (bytes == 0) return "0 Bytes";
-      var k = 1024,
-        dm = decimals || 2,
-        sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+      return window.$formatBytes(bytes, decimals);
     },
 
-    guid: function() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return (
-        s4() +
-        s4() +
-        "-" +
-        s4() +
-        "-" +
-        s4() +
-        "-" +
-        s4() +
-        "-" +
-        s4() +
-        s4() +
-        s4()
-      );
-    },
-
-    updateProgress: function(uin, uploadedBytes, totalBytes) {
-      this.$store.commit("article_file/updateProgress", {
+    updateUploadProgress: function(uin, uploadedBytes, totalBytes) {
+      this.$store.commit("article_file/updateUploadProgress", {
         uin: uin,
         size: totalBytes,
         uploadedSize: uploadedBytes
       });
-    }
+    },
+
+    
   },
 
   watch: {

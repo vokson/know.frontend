@@ -2,14 +2,13 @@ export default {
     namespaced: true,
 
     state: {
-        items: [],
+        items: []
     },
 
     getters: {
         give: function (state) {
             return state.items;
-        },
-
+        }
     },
 
     mutations: {
@@ -47,7 +46,8 @@ export default {
 
         },
 
-        updateUploadProgress: function (state, data) {
+
+        updateProgress: function (state, data) {
 
             for (let i = 0; i < state.items.length; i++) {
 
@@ -97,12 +97,15 @@ export default {
 
             let parameters = {
                 queryName: "article_file_download",
+
                 data: {
                     file_id: payload.file_id
                 },
+
+                isInline: false // Запрос нас качивание, а не показ
             };
 
-            context.dispatch('download/do', parameters, { root: true });
+            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
         },
 
         downloadAll: (context, payload) => {
@@ -114,7 +117,7 @@ export default {
                 }
             };
 
-            context.dispatch('download/do', parameters, { root: true });
+            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
         },
 
 
@@ -135,6 +138,8 @@ export default {
 
             context.dispatch('query/sendInOrderToUploadFile', parameters, { root: true })
         },
+
+        
 
     }
 

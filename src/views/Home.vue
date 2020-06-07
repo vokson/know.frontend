@@ -101,9 +101,18 @@
       <div class="row">
         <h5>История изменений</h5>
       </div>
-      
 
       <div class="row actual_version_color">
+        <div class="col-2">
+          <p>1.1.0 - 07.06.2020</p>
+        </div>
+        <div class="col-8">
+          <p>Добавлен индикатор скачивания файлов.</p>
+        </div>
+      </div>
+      
+
+      <div class="row">
         <div class="col-2">
           <p>1.0.3 - 27.05.2020</p>
         </div>
@@ -154,7 +163,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: "1.0.3"
+      version: "1.1.0"
     };
   },
 

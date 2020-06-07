@@ -115,6 +115,11 @@ export default {
 
             let responseFunction = function (response) {
 
+                // Если загрузка файла не удалась, надо что-то делать..
+                if (response.data.success == 0) {
+                    payload.badFileDownloadCallback();
+                }
+
                 // Скачивание
                 if (payload.isInline == true) {
 
@@ -144,7 +149,11 @@ export default {
                 headers: {
                     'Accept': '*/* ',
                 },
-                responseType: 'blob'
+                responseType: 'blob',
+                // onDownloadProgress: function (progressEvent) {
+                //     console.log('Downloading:' + Math.floor(progressEvent.loaded/progressEvent.total*100) + '%');
+                //   },
+                onDownloadProgress: payload.progressCallback,
             })
                 .then(responseFunction)
                 .catch(function (error) {

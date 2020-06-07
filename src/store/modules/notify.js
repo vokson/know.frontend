@@ -146,6 +146,12 @@ let getText = function (code) {
                 type: "error"
             }
 
+        case "E_DOWNLOAD_001":
+            return {
+                text: "Ошибка скачивания файла",
+                type: "error"
+            }
+
         // case "E_FILE_005":
         //     return {
         //         text: "Файлы были успешно очищены",

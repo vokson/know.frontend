@@ -31,17 +31,17 @@ Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
 
   store.commit('roles/path', {
-      path: to.path,
-      role: (store.getters['auth/giveRole'] == undefined) ? 'guest' : store.getters['auth/giveRole']
+    path: to.path,
+    role: (store.getters['auth/giveRole'] == undefined) ? 'guest' : store.getters['auth/giveRole']
   });
 
   if (store.getters['roles/mayEnter'] == false) {
 
-      store.dispatch('notify/showNotifyByCode', '1.5');
-      next({ name: 'login' })
+    store.dispatch('notify/showNotifyByCode', '1.5');
+    next({ name: 'login' })
 
   } else {
-      next();
+    next();
   }
 });
 
@@ -53,10 +53,41 @@ new Vue({
 }).$mount('#app')
 
 window.$axios = axios.create({
-  // baseURL: "http://know.backend/api",
-  baseURL: "http://api.know/api",
- // method: 'post', // Перестало работать в axios 0.19
+  baseURL: "http://know.backend/api",
+  // baseURL: "http://api.know/api",
+  // method: 'post', // Перестало работать в axios 0.19
 });
 
 window.$sha256 = sha256
 window.$download = fileDownload
+
+window.$guid = function () {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return (
+    s4() +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    s4() +
+    s4()
+  );
+}
+
+window.$formatBytes =  function(bytes, decimals) {
+  if (bytes == 0) return "0 Bytes";
+  var k = 1024,
+    dm = decimals || 2,
+    sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+    i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+}
