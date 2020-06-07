@@ -47,7 +47,7 @@ export default {
 
         },
 
-        updateUploadProgress: function (state, data) {
+        updateProgress: function (state, data) {
 
             for (let i = 0; i < state.items.length; i++) {
 
@@ -120,17 +120,40 @@ export default {
 
         upload: (context, payload) => {
 
+            let uin = window.$guid();
+
             context.commit('add', {
                 id: null,
-                uin: payload.uin,
+                uin: uin,
                 original_name: payload.file.name,
                 size: payload.file.size,
                 uploadedSize: 0
             });
 
+            let updateProgress = function (uin, uploadedBytes, totalBytes) {
+
+                this.commit("updateProgress", {
+                    uin: uin,
+                    size: totalBytes,
+                    uploadedSize: uploadedBytes
+                });
+            }
+
+            let progressCallback = updateProgress.bind(context);
+
+            let badUploadFunction = function () {
+                this.commit("article_file/deleteSuccess", uin, { root: true });
+            };
+
             let parameters = {
                 queryName: "article_file_upload",
-                data: payload,
+                data: Object.assign(payload,{uin : uin}),
+
+                progressCallback: function (e) {
+                    progressCallback(uin, e.loaded, e.total);
+                },
+
+                badFileUploadCallback: badUploadFunction.bind(context)
             };
 
             context.dispatch('query/sendInOrderToUploadFile', parameters, { root: true })

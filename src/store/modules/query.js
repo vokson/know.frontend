@@ -172,7 +172,8 @@ export default {
 
                 // Если загрузка файла не удалась, надо что-то делать..
                 if (response.data.success == 0) {
-                    payload.data.badFileUploadCallback();
+                    // payload.data.badFileUploadCallback();
+                    payload.badFileUploadCallback();
                 }
 
                 // console.log(query_name);
@@ -200,7 +201,8 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 },
 
-                onUploadProgress: payload.data.progressCallback,
+                // onUploadProgress: payload.data.progressCallback,
+                onUploadProgress: payload.progressCallback,
             })
                 .then(responseFunction)
                 .catch(function (error) {

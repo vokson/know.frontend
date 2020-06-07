@@ -226,15 +226,6 @@ export default {
       return result;
     },
 
-    // allTagsByColumns: function() {
-    //   let columns = [];
-    //   let mid = Math.ceil(this.allTags.length / this.countOfTagColumns);
-    //   for (let col = 0; col < this.countOfTagColumns; col++) {
-    //     columns.push(this.allTags.slice(col * mid, col * mid + mid));
-    //   }
-    //   return columns;
-    // },
-
     attachedFiles: function() {
       return this.$store.getters["article_file/give"];
     }
@@ -376,23 +367,9 @@ export default {
         return;
       }
 
-      let uin = window.$guid();
-      let progressCallback = this.updateUploadProgress.bind(this);
-
-      let badUploadFunction = function() {
-        this.$store.commit("article_file/deleteSuccess", uin, { root: true });
-      };
-
       this.$store.dispatch("article_file/upload", {
         file: file,
         article_id: this.articleUin,
-        uin: uin,
-
-        progressCallback: function(e) {
-          progressCallback(uin, e.loaded, e.total);
-        },
-
-        badFileUploadCallback: badUploadFunction.bind(this)
       });
     },
 
@@ -407,15 +384,6 @@ export default {
       return window.$formatBytes(bytes, decimals);
     },
 
-    updateUploadProgress: function(uin, uploadedBytes, totalBytes) {
-      this.$store.commit("article_file/updateUploadProgress", {
-        uin: uin,
-        size: totalBytes,
-        uploadedSize: uploadedBytes
-      });
-    },
-
-    
   },
 
   watch: {
@@ -434,11 +402,9 @@ export default {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 500px;
-  /* font-family: sans-serif; */
   margin-top: 40px;
   padding-top: 80px;
   text-align: center;
-  /* vertical-align: middle; */
   font: 21pt bold arial;
   color: gray;
 }

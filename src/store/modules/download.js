@@ -72,7 +72,7 @@ export default {
             
 
             let badDownloadFunction = function () {
-                context.dispatch('notify/showNotifyByCode', "E_DOWNLOAD_001", { root: true });
+                this.dispatch('notify/showNotifyByCode', "E_DOWNLOAD_001", { root: true });
             };
 
             let parameters = {
