@@ -143,6 +143,7 @@ export default {
 
             let badUploadFunction = function () {
                 this.commit("article_file/deleteSuccess", uin, { root: true });
+                this.dispatch('notify/showNotifyByCode', "E_UPLOAD_001", { root: true });
             };
 
             let parameters = {

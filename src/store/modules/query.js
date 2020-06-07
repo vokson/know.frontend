@@ -116,9 +116,9 @@ export default {
             let responseFunction = function (response) {
 
                 // Если загрузка файла не удалась, надо что-то делать..
-                if (response.data.success == 0) {
-                    payload.badFileDownloadCallback();
-                }
+                // if (response.data.success == 0) {
+                //     payload.badFileDownloadCallback();
+                // }
 
                 // Скачивание
                 if (payload.isInline == true) {
@@ -157,8 +157,8 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
+                    payload.badFileDownloadCallback();
                     console.log(error);
-                    // context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },
 
@@ -171,10 +171,9 @@ export default {
             let responseFunction = function (response) {
 
                 // Если загрузка файла не удалась, надо что-то делать..
-                if (response.data.success == 0) {
-                    // payload.data.badFileUploadCallback();
-                    payload.badFileUploadCallback();
-                }
+                // if (response.data.success == 0) {
+                //     payload.badFileUploadCallback();
+                // }
 
                 // console.log(query_name);
                 response.data.queryName = query_name;
@@ -206,6 +205,7 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
+                    payload.badFileUploadCallback();
                     console.log(error);
                 });
 

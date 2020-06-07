@@ -152,6 +152,12 @@ let getText = function (code) {
                 type: "error"
             }
 
+        case "E_UPLOAD_001":
+            return {
+                text: "Ошибка загрузки файла",
+                type: "error"
+            }
+
         // case "E_FILE_005":
         //     return {
         //         text: "Файлы были успешно очищены",
