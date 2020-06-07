@@ -44,6 +44,14 @@ export default {
 
         },
 
+        deleteSuccess: function (state, uin) {
+            state.items.map(function (elem, i) {
+                if (elem.uin == uin) {
+                    state.items.splice(i, 1);
+                }
+            });
+        },
+
     },
 
     actions: {
@@ -72,6 +80,7 @@ export default {
             
 
             let badDownloadFunction = function () {
+                this.commit("download/deleteSuccess", uin, { root: true });
                 this.dispatch('notify/showNotifyByCode', "E_DOWNLOAD_001", { root: true });
             };
 
