@@ -104,6 +104,15 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>1.1.1 - 04.09.2020</p>
+        </div>
+        <div class="col-8">
+          <p>Максимальный размер загружаемых файлов увеличен до 1Гб.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
           <p>1.1.0 - 07.06.2020</p>
         </div>
         <div class="col-8">
@@ -163,7 +172,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: "1.1.0"
+      version: "1.1.1"
     };
   },
 

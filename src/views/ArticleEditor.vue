@@ -113,7 +113,7 @@ export default {
     return {
       date_format: "dd.MM.yyyy",
       isDragging: false,
-      maxFileSize: 100 * 1024 * 1024,
+      maxFileSize: 1000 * 1024 * 1024,
       tagColumnCount: 4,
 
       // customEditorToolbar: [
