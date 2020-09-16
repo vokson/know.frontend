@@ -24,7 +24,7 @@
               role="status"
               aria-hidden="true"
             ></span>
-            Поиск (найдено {{countOfArticles}})
+            В чем сила, брат? (найдено {{countOfArticles}})
           </button>
         </div>
 
@@ -149,13 +149,10 @@ export default {
       this.$store.dispatch("article_search/getArticles", {});
     },
 
-    gotoReader: function(uin, version) {
+    gotoReader: function(uin) {
       this.$router.push({
         name: "article_reader",
-        params: {
-          uin: uin,
-          version: version
-        }
+        params: {uin: uin}
       });
     },
 

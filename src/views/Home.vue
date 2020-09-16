@@ -104,6 +104,15 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>1.2.0 - 16.09.2020</p>
+        </div>
+        <div class="col-8">
+          <p>При входе сразу попадаешь на Статьи. Изменен роутинг статей.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
           <p>1.1.1 - 04.09.2020</p>
         </div>
         <div class="col-8">
@@ -172,7 +181,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: "1.1.1"
+      version: "1.2.0"
     };
   },
 

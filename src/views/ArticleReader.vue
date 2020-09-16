@@ -86,13 +86,6 @@
               <div class="col-9" v-else>{{item.original_name}}</div>
 
               <div class="col-2">{{formatBytes(item.size)}}</div>
-              <!-- <div class="col-1" v-if="item.id != null">
-                <button
-                  type="button"
-                  class="btn btn-danger btn-sm"
-                  v-on:click="deleteFile(item.id)"
-                >Удалить</button>
-              </div>-->
             </div>
           </div>
         </div>
@@ -118,9 +111,6 @@ export default {
         version: this.$route.params.version
       });
 
-      // if (this.$route.params.uin) {
-      //   this.getFiles();
-      // }
     });
   },
 
@@ -280,11 +270,9 @@ export default {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;
-  /* font-family: sans-serif; */
   margin-top: 40px;
   padding-top: 80px;
   text-align: center;
-  /* vertical-align: middle; */
   font: 21pt bold arial;
   color: gray;
 }

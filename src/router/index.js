@@ -14,8 +14,10 @@ import Tag from '../views/Tag.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/', redirect: { name: 'article_search' }},
+
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: Home
   },

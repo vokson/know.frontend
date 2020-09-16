@@ -243,18 +243,6 @@ export default {
       );
     },
 
-    // mixedTags: function(col) {
-    //   let result = [];
-
-    //   this.sliceTags(col).forEach(tagName => {
-    //     let isChecked = this.articleTags.includes(tagName);
-    //     let elem = { name: tagName, isChecked: isChecked };
-    //     result.push(elem);
-    //   });
-
-    //   return result;
-    // },
-
     saveArticle: function() {
       this.$store.dispatch("article/set", {});
     },
@@ -314,8 +302,7 @@ export default {
       this.$router.push({
         name: "article_reader",
         params: {
-          uin: this.articleUin,
-          version: this.articleVersion
+          uin: this.articleUin
         }
       });
     },
